@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ラーメンマップ UIデモ v8</title>
+
+<!-- Tabler Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+/* アプリヘッダー（タイトルのみ） */
+.app-header {
+  background: #ffffff;
+  border-bottom: 0.5px solid #e2e2dc;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.app-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1a1a17;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* ボトムナビゲーション（画面下に固定配置） */
+.app-bottom-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  background: #ffffff;
+  border-top: 0.5px solid #e2e2dc;
+  display: flex;
+  align-items: center;
+  z-index: 20;
+}
+.nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #8a8a84;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.nav-tab i {
+  font-size: 18px;
+}
+.nav-tab.active {
+  color: #D85A30;
+  font-weight: 700;
+}
+
+/* フィルター・ボタン類 */
+.chip {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  border: 0.5px solid #e2e2dc;
+  background: #f2f2ef;
+  color: #55554f;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.chip.active {
+  background: #F5C4B3;
+  border-color: #D85A30;
+  color: #4A1B0C;
+}
+.chip.rating.active {
+  background: var(--c-bg);
+  border-color: var(--c-bg);
+  color: var(--c-text);
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f2f2ef;
+  border: 0.5px solid #e2e2dc;
+  color: #55554f;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.pin {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pin-color);
+  border: 2px solid rgba(0,0,0,0.12);
+  transform: translate(-50%,-50%);
+  cursor: pointer;
+}
+.actionbtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: #f7f7f5;
+  border: 0.5px solid #e2e2dc;
+  color: #3a3a36;
+  font-size: 11px;
+  text-decoration: none;
+}
+.togglebtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #f7f7f5;
+  border: 0.5px solid #e2e2dc;
+  color: #3a3a36;
+  font-size: 12.5px;
+  flex: 1;
+  cursor: pointer;
+}
+.togglebtn.active {
+  background: #F5C4B3;
+  border-color: #D85A30;
+  color: #4A1B0C;
+}
+.filter-label {
+  font-size: 11px;
+  color: #9a9a94;
+  margin: 0 0 5px;
+  font-weight: 500;
+}
+
+/* 店舗詳細シート */
+#sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-radius: 18px 18px 0 0;
+  transform: translateY(100%);
+  transition: transform .28s ease;
+  padding: 10px 16px 18px;
+  border-top: 0.5px solid #e5e5e0;
+  z-index: 30;
+}
+#sheet.open {
+  transform: translateY(0);
+}
+
+/* モーダル背景 */
+#modalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+  z-index: 40;
+}
+#modalBackdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* フィルターモーダル */
+#filterModal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-radius: 18px 18px 0 0;
+  transform: translateY(100%);
+  transition: transform .28s ease;
+  padding: 12px 16px 18px;
+  border-top: 0.5px solid #e5e5e0;
+  z-index: 50;
+  max-height: 80%;
+  overflow-y: auto;
+}
+#filterModal.open {
+  transform: translateY(0);
+}
+</style>
+</head>
+<body style="margin:0; background:#f5f5f2; font-family:var(--font-sans, sans-serif);">
+
+<div style="max-width:380px; margin:20px auto;">
+  <div style="background:#ffffff; border-radius:22px; padding:10px; border:0.5px solid #e2e2dc;">
+    <div id="app" style="position:relative; width:100%; height:710px; border-radius:16px; overflow:hidden; background:#ffffff;">
+      
+      <!-- ヘッダー（タイトルのみ） -->
+      <header class="app-header">
+        <h1 class="app-title">🍜 RAMEN MAP</h1>
+        <button style="background:none; border:none; color:#55554f; font-size:18px; cursor:pointer; padding:0;">
+          <i class="ti ti-bell"></i>
+        </button>
+      </header>
+
+      <!-- 店舗検索ビュー -->
+      <div id="searchView" style="padding-bottom: 56px;">
+        <!-- 検索バー -->
+        <div style="padding:10px 12px 4px;">
+          <div style="display:flex; align-items:center; gap:8px; background:#f2f2ef; border:0.5px solid #e2e2dc; border-radius:10px; padding:8px 10px;">
+            <i class="ti ti-search" style="color:#8a8a84; font-size:16px;" aria-hidden="true"></i>
+            <span style="color:#9a9a94; font-size:13px;">ラーメンを検索</span>
+          </div>
+        </div>
+
+        <!-- クイックフィルターバー -->
+        <div style="display:flex; gap:6px; padding:6px 12px 6px; overflow-x:auto;">
+          <button class="chip" id="openChip">営業中</button>
+          <button class="chip" id="unvisitedChip">未訪問</button>
+          <button class="chip" id="sryChip">SRY</button>
+          <button class="chip" id="filterToggle">フィルター <i class="ti ti-chevron-down" aria-hidden="true" style="font-size:12px; vertical-align:-1px;"></i></button>
+        </div>
+
+        <!-- 件数表示 -->
+        <div id="countLabel" style="padding:0 14px 6px; color:#9a9a94; font-size:12px;">5件中5件表示</div>
+
+        <!-- マップエリア -->
+        <div id="map" style="position:relative; margin:0 12px; height:430px; border-radius:12px; background:#eeeeea; border:0.5px solid #e2e2dc; overflow:hidden;">
+          <!-- 評価ランク凡例（マップ内表示） -->
+          <div id="legend" style="position:absolute; top:8px; right:8px; z-index:10; background:rgba(247,247,245,0.92); backdrop-filter:blur(4px); border:0.5px solid #e2e2dc; border-radius:8px; padding:5px 8px; display:flex; align-items:center; gap:8px;"></div>
+        </div>
+      </div>
+
+      <!-- 下部ボトムナビゲーション -->
+      <nav class="app-bottom-nav">
+        <button class="nav-tab active" data-tab="search">
+          <i class="ti ti-map-pin"></i>
+          <span>店舗検索</span>
+        </button>
+        <button class="nav-tab" data-tab="favorite">
+          <i class="ti ti-heart"></i>
+          <span>お気に入り</span>
+        </button>
+        <button class="nav-tab" data-tab="mypage">
+          <i class="ti ti-user"></i>
+          <span>マイページ</span>
+        </button>
+      </nav>
+
+      <!-- モーダル背景 -->
+      <div id="modalBackdrop"></div>
+
+      <!-- フィルターモーダル -->
+      <div id="filterModal">
+        <div style="width:36px; height:4px; background:#d9d9d3; border-radius:2px; margin:0 auto 10px;"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:14px; font-weight:600; color:#1a1a17;">絞り込み条件</span>
+          <button id="filterModalClose" style="background:none; border:none; color:#8a8a84; font-size:18px; cursor:pointer; padding:0;"><i class="ti ti-x"></i></button>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div>
+            <p class="filter-label">評価ランク</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              <button class="chip rating" data-value="ちょめめ" style="--c-bg:#EF9F27; --c-text:#412402;">ちょめめ</button>
+              <button class="chip rating" data-value="超超うまい" style="--c-bg:#D85A30; --c-text:#4A1B0C;">超超うまい</button>
+              <button class="chip rating" data-value="超うまい" style="--c-bg:#F0997B; --c-text:#4A1B0C;">超うまい</button>
+              <button class="chip rating" data-value="うまい" style="--c-bg:#FAEEDA; --c-text:#633806;">うまい</button>
+            </div>
+          </div>
+          <div>
+            <p class="filter-label">味のジャンル</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              <button class="chip genre" data-genre="醤油">醤油</button>
+              <button class="chip genre" data-genre="塩">塩</button>
+              <button class="chip genre" data-genre="味噌">味噌</button>
+              <button class="chip genre" data-genre="豚骨">豚骨</button>
+              <button class="chip genre" data-genre="二郎系">二郎系</button>
+              <button class="chip genre" data-genre="家系">家系</button>
+              <button class="chip genre" data-genre="煮干し">煮干し</button>
+              <button class="chip genre" data-genre="鶏白湯">鶏白湯</button>
+              <button class="chip genre" data-genre="辛い系">辛い系</button>
+            </div>
+          </div>
+          <div>
+            <p class="filter-label">入店・食券</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              <button class="chip entry" data-entry="記帳制">記帳制</button>
+              <button class="chip entry" data-entry="整理券制">整理券制</button>
+              <button class="chip entry" data-entry="並び順制">並び順制</button>
+              <button class="chip ticket" data-ticket="食券先買い">食券先買い</button>
+              <button class="chip ticket" data-ticket="食券後買い">食券後買い</button>
+            </div>
+          </div>
+          <div>
+            <p class="filter-label">設備・こだわり</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              <button class="chip" id="cashlessChip">電子マネー対応</button>
+              <button class="chip" id="parkingChip">駐車場あり</button>
+              <button class="chip" id="tableChip">テーブル席あり</button>
+            </div>
+          </div>
+
+          <!-- クリアボタン ＆ 検索ボタン -->
+          <div style="margin-top:8px; display:flex; gap:10px;">
+            <button id="resetFilterBtn" style="flex:1; padding:10px; border-radius:10px; border:0.5px solid #e2e2dc; background:#f7f7f5; color:#55554f; font-size:13px; font-weight:500; cursor:pointer;">クリア</button>
+            <button id="applyFilterBtn" style="flex:2; padding:10px; border-radius:10px; border:none; background:#D85A30; color:#ffffff; font-size:13px; font-weight:600; cursor:pointer;">検索する</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 店舗詳細シート -->
+      <div id="sheet">
+        <div style="width:36px; height:4px; background:#d9d9d3; border-radius:2px; margin:0 auto 10px;"></div>
+        
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <p id="sheetName" style="color:#1a1a17; font-size:16px; font-weight:600; margin:0;"></p>
+          <button id="sheetClose" aria-label="閉じる" style="background:none; border:none; color:#8a8a84; font-size:20px; padding:0; line-height:1; cursor:pointer;">
+            <i class="ti ti-x" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div id="sheetBadges" style="display:flex; flex-wrap:wrap; gap:6px; margin:8px 0;"></div>
+        <div id="sheetSry" style="display:none; align-items:center; gap:6px; color:#854F0B; font-size:12px; margin-bottom:8px;"></div>
+        <div id="sheetStatus" style="margin-bottom:10px;"></div>
+        <div id="sheetEntry" style="display:flex; gap:6px; margin-bottom:12px;"></div>
+
+        <div style="display:flex; gap:8px; margin-bottom:8px;">
+          <button class="actionbtn"><i class="ti ti-route" aria-hidden="true" style="font-size:18px;"></i>経路</button>
+          <a class="actionbtn" id="igLink" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-instagram" aria-hidden="true" style="font-size:18px;"></i>Instagram</a>
+          <a class="actionbtn" id="ytLink" target="_blank" rel="noopener noreferrer"><i class="ti ti-brand-youtube" aria-hidden="true" style="font-size:18px;"></i>YouTube</a>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="togglebtn" id="favBtn"><i class="ti ti-heart" aria-hidden="true"></i>お気に入り</button>
+          <button class="togglebtn" id="visitBtn"><i class="ti ti-check" aria-hidden="true"></i>行った</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const shops = [
+  {id:1, name:'中華そば とみ田', x:26, y:32, rating:'ちょめめ', genre:['豚骨','醤油'], status:'open', hours:'11:00–15:00', entry:'記帳制', ticket:'食券後買い', sry:'2023 つけ麺部門', cashless:true, parking:false, table:false, visited:false},
+  {id:2, name:'環七大勝軒インスパイア', x:58, y:22, rating:'超超うまい', genre:['二郎系'], status:'break', hours:'11:00–14:00 / 17:00–20:00', entry:'並び順制', ticket:'食券先買い', sry:null, cashless:false, parking:true, table:false, visited:true},
+  {id:3, name:'六角家', x:72, y:58, rating:'超うまい', genre:['家系','豚骨'], status:'open', hours:'11:00–22:00', entry:'整理券制', ticket:'食券先買い', sry:null, cashless:true, parking:true, table:true, visited:false},
+  {id:4, name:'灯花', x:40, y:78, rating:'うまい', genre:['鶏白湯'], status:'closed', hours:'定休日: 水曜', entry:'並び順制', ticket:'食券先買い', sry:null, cashless:false, parking:false, table:true, visited:false},
+  {id:5, name:'煮干しラーメン 玉', x:14, y:58, rating:'ちょめめ', genre:['煮干し'], status:'open', hours:'11:30–14:30', entry:'記帳制', ticket:'食券後買い', sry:'2024 煮干し部門', cashless:true, parking:false, table:false, visited:false}
+];
+
+const ratingColor = {'ちょめめ':'#EF9F27', '超超うまい':'#D85A30', '超うまい':'#F0997B', 'うまい':'#FAEEDA'};
+const ratingText = {'ちょめめ':'#412402', '超超うまい':'#4A1B0C', '超うまい':'#4A1B0C', 'うまい':'#633806'};
+const statusCfg = {
+  open: {dot:'#1D9E75', text:'#0F6E56', label:'営業中'},
+  break: {dot:'#EF9F27', text:'#854F0B', label:'準備中(中休み)'},
+  closed: {dot:'#B4B2A9', text:'#5F5E5A', label:'本日定休'}
+};
+
+// ボトムタブ切り替え
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// 凡例描画
+const legendOrder = ['ちょめめ', '超超うまい', '超うまい', 'うまい'];
+document.getElementById('legend').innerHTML = legendOrder.map(r =>
+  `<div style="display:inline-flex; align-items:center; gap:3px;">
+    <span style="width:7px; height:7px; border-radius:50%; background:${ratingColor[r]}; border:1px solid rgba(0,0,0,0.15); display:inline-block;"></span>
+    <span style="font-size:10px; color:#55554f; white-space:nowrap;">${r}</span>
+  </div>`
+).join('');
+
+const mapEl = document.getElementById('map');
+shops.forEach(s => {
+  const dot = document.createElement('div');
+  dot.className = 'pin';
+  dot.style.left = s.x + '%';
+  dot.style.top = s.y + '%';
+  dot.style.setProperty('--pin-color', ratingColor[s.rating]);
+  dot.dataset.id = s.id;
+  dot.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openSheet(s.id);
+  });
+  mapEl.appendChild(dot);
+});
+
+mapEl.addEventListener('click', closeSheet);
+
+let openOnly = false, unvisitedOnly = false, sryOnly = false;
+let cashlessOnly = false, parkingOnly = false, tableOnly = false;
+const activeRatings = new Set();
+const activeGenres = new Set();
+const activeEntries = new Set();
+const activeTickets = new Set();
+
+function applyFilters() {
+  let visible = 0;
+  shops.forEach(s => {
+    const pin = mapEl.querySelector('[data-id="' + s.id + '"]');
+    let ok = true;
+    if (openOnly && s.status !== 'open') ok = false;
+    if (unvisitedOnly && s.visited) ok = false;
+    if (sryOnly && !s.sry) ok = false;
+    if (activeRatings.size > 0 && !activeRatings.has(s.rating)) ok = false;
+    if (activeGenres.size > 0 && ![...activeGenres].every(g => s.genre.includes(g))) ok = false;
+    if (activeEntries.size > 0 && !activeEntries.has(s.entry)) ok = false;
+    if (activeTickets.size > 0 && !activeTickets.has(s.ticket)) ok = false;
+    if (cashlessOnly && !s.cashless) ok = false;
+    if (parkingOnly && !s.parking) ok = false;
+    if (tableOnly && !s.table) ok = false;
+
+    pin.style.display = ok ? 'block' : 'none';
+    if (ok) visible++;
+  });
+  document.getElementById('countLabel').textContent = shops.length + '件中' + visible + '件表示';
+}
+
+// クイックフィルター
+document.getElementById('openChip').addEventListener('click', function() {
+  openOnly = !openOnly; this.classList.toggle('active', openOnly); applyFilters();
+});
+document.getElementById('unvisitedChip').addEventListener('click', function() {
+  unvisitedOnly = !unvisitedOnly; this.classList.toggle('active', unvisitedOnly); applyFilters();
+});
+document.getElementById('sryChip').addEventListener('click', function() {
+  sryOnly = !sryOnly; this.classList.toggle('active', sryOnly); applyFilters();
+});
+
+// モーダル制御
+const filterModal = document.getElementById('filterModal');
+const modalBackdrop = document.getElementById('modalBackdrop');
+
+function openFilterModal() {
+  filterModal.classList.add('open');
+  modalBackdrop.classList.add('open');
+}
+function closeFilterModal() {
+  filterModal.classList.remove('open');
+  modalBackdrop.classList.remove('open');
+}
+
+document.getElementById('filterToggle').addEventListener('click', openFilterModal);
+document.getElementById('filterModalClose').addEventListener('click', closeFilterModal);
+modalBackdrop.addEventListener('click', closeFilterModal);
+document.getElementById('applyFilterBtn').addEventListener('click', closeFilterModal);
+
+// クリアボタン処理
+document.getElementById('resetFilterBtn').addEventListener('click', () => {
+  openOnly = unvisitedOnly = sryOnly = cashlessOnly = parkingOnly = tableOnly = false;
+  activeRatings.clear(); activeGenres.clear(); activeEntries.clear(); activeTickets.clear();
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  applyFilters();
+});
+
+// モーダル内トグル
+document.getElementById('cashlessChip').addEventListener('click', function() {
+  cashlessOnly = !cashlessOnly; this.classList.toggle('active', cashlessOnly); applyFilters();
+});
+document.getElementById('parkingChip').addEventListener('click', function() {
+  parkingOnly = !parkingOnly; this.classList.toggle('active', parkingOnly); applyFilters();
+});
+document.getElementById('tableChip').addEventListener('click', function() {
+  tableOnly = !tableOnly; this.classList.toggle('active', tableOnly); applyFilters();
+});
+
+function setupChipGroup(selector, setObj) {
+  document.querySelectorAll(selector).forEach(btn => {
+    btn.addEventListener('click', function() {
+      const val = this.dataset.value || this.dataset.genre || this.dataset.entry || this.dataset.ticket;
+      if (setObj.has(val)) { setObj.delete(val); this.classList.remove('active'); }
+      else { setObj.add(val); this.classList.add('active'); }
+      applyFilters();
+    });
+  });
+}
+setupChipGroup('.chip.rating', activeRatings);
+setupChipGroup('.chip.genre', activeGenres);
+setupChipGroup('.chip.entry', activeEntries);
+setupChipGroup('.chip.ticket', activeTickets);
+
+let currentShop = null;
+function openSheet(id) {
+  currentShop = shops.find(x => x.id === id);
+  document.getElementById('sheetName').textContent = currentShop.name;
+  document.getElementById('sheetBadges').innerHTML =
+    '<span style="background:'+ratingColor[currentShop.rating]+';color:'+ratingText[currentShop.rating]+';padding:3px 10px;border-radius:999px;font-size:12px;border:0.5px solid rgba(0,0,0,0.08);">'+currentShop.rating+'</span>' +
+    currentShop.genre.map(g => '<span class="tag">'+g+'</span>').join('');
+    
+  const sryEl = document.getElementById('sheetSry');
+  if (currentShop.sry) {
+    sryEl.style.display = 'flex';
+    sryEl.innerHTML = '<i class="ti ti-trophy" aria-hidden="true" style="font-size:14px;"></i><span>SRY '+currentShop.sry+' 受賞</span>';
+  } else {
+    sryEl.style.display = 'none';
+  }
+  
+  const c = statusCfg[currentShop.status];
+  document.getElementById('sheetStatus').innerHTML =
+    '<span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:'+c.dot+';display:inline-block;"></span><span style="color:'+c.text+';font-size:13px;">'+c.label+'</span></span>' +
+    '<span style="color:#9a9a94;font-size:12.5px;margin-left:10px;">'+currentShop.hours+'</span>';
+    
+  document.getElementById('sheetEntry').innerHTML =
+    '<span class="tag"><i class="ti ti-notebook" aria-hidden="true"></i>'+currentShop.entry+'</span><span class="tag"><i class="ti ti-ticket" aria-hidden="true"></i>'+currentShop.ticket+'</span>';
+    
+  const q = encodeURIComponent('SUSURU ' + currentShop.name);
+  document.getElementById('igLink').href = 'https://www.instagram.com/explore/search/keyword/?q=' + q;
+  document.getElementById('ytLink').href = 'https://www.youtube.com/results?search_query=' + q;
+  
+  document.getElementById('visitBtn').classList.toggle('active', currentShop.visited);
+  document.getElementById('sheet').classList.add('open');
+}
+
+function closeSheet() {
+  document.getElementById('sheet').classList.remove('open');
+}
+
+document.getElementById('sheetClose').addEventListener('click', closeSheet);
+document.getElementById('favBtn').addEventListener('click', function(){ this.classList.toggle('active'); });
+document.getElementById('visitBtn').addEventListener('click', function(){ 
+  if (currentShop) {
+    currentShop.visited = !currentShop.visited;
+    this.classList.toggle('active', currentShop.visited);
+    applyFilters();
+  }
+});
+
+applyFilters();
+</script>
+
+</body>
+</html>

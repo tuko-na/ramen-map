@@ -1,0 +1,84 @@
+/* ============================================================
+   ボトムナビゲーション
+   モバイル: 全幅固定バー (前回のUIデモ方式)
+   PC: 左下の浮遊ピル型ナビ
+   ============================================================ */
+
+#bottom-nav {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+}
+
+.nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-placeholder);
+  transition: color var(--transition-fast);
+}
+
+.nav-tab i {
+  font-size: 18px;
+}
+
+.nav-tab.active {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* --- モバイル: 全幅固定バー --- */
+@media (max-width: 767px) {
+  #bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+    padding-bottom: var(--safe-bottom);
+    background: var(--bg-primary);
+    border-top: 0.5px solid var(--border);
+    z-index: var(--z-ui-layer);
+  }
+
+  /* UIレイヤーの下部エリアは不要 */
+  #ui-bottom {
+    display: none;
+  }
+}
+
+/* --- PC (768px+): 浮遊ピル型ナビ --- */
+@media (min-width: 768px) {
+  #ui-bottom {
+    padding: 0 16px 16px;
+  }
+
+  #bottom-nav {
+    width: fit-content;
+    height: auto;
+    padding: 6px 16px;
+    border-radius: var(--radius-2xl);
+    border: 0.5px solid var(--border);
+    box-shadow: var(--shadow-xl);
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    gap: 24px;
+  }
+
+  .nav-tab {
+    flex: none;
+    height: auto;
+    padding: 4px 0;
+  }
+
+  .nav-tab:hover {
+    color: var(--text-secondary);
+  }
+}

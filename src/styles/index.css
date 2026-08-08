@@ -1,0 +1,132 @@
+/* ============================================================
+   ラーメンマップ - デザインシステム (ライトモード)
+   ============================================================ */
+
+:root {
+  /* Background */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f2;
+  --bg-tertiary: #f2f2ef;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-overlay: rgba(0, 0, 0, 0.3);
+
+  /* Text */
+  --text-primary: #1a1a17;
+  --text-secondary: #55554f;
+  --text-muted: #9a9a94;
+  --text-placeholder: #8a8a84;
+
+  /* Accent */
+  --accent: #D85A30;
+  --accent-light: #F5C4B3;
+  --accent-dark: #4A1B0C;
+  --accent-hover: #c04d26;
+
+  /* Rating Colors */
+  --rating-chomeme: #EF9F27;
+  --rating-chomeme-text: #412402;
+  --rating-chochoumai: #D85A30;
+  --rating-chochoumai-text: #4A1B0C;
+  --rating-choumai: #F0997B;
+  --rating-choumai-text: #4A1B0C;
+  --rating-umai: #FAEEDA;
+  --rating-umai-text: #633806;
+
+  /* Status */
+  --status-open: #1D9E75;
+  --status-open-text: #0F6E56;
+  --status-break: #EF9F27;
+  --status-break-text: #854F0B;
+  --status-closed: #B4B2A9;
+  --status-closed-text: #5F5E5A;
+
+  /* Border */
+  --border: #e2e2dc;
+  --border-active: #D85A30;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.15);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 18px;
+  --radius-full: 999px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 280ms ease;
+
+  /* Z-index */
+  --z-map: 0;
+  --z-ui-layer: 10;
+  --z-controls: 15;
+  --z-overlay: 30;
+  --z-modal: 50;
+
+  /* Layout */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --bottom-nav-height: 56px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; }
+input { border: none; outline: none; font-family: inherit; background: none; }
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: var(--radius-full); }
+
+/* --- Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+@keyframes geolocatePulse {
+  0% { box-shadow: 0 0 0 0 rgba(29, 158, 117, 0.5); }
+  70% { box-shadow: 0 0 0 12px rgba(29, 158, 117, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(29, 158, 117, 0); }
+}

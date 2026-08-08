@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ラーメンマップ - 浮遊カード方式 PCデモ</title>
+
+<!-- Tabler Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* 地図背景のグラフィック再現 */
+  .dummy-map-bg {
+    background-color: #eeeeea;
+    background-image: 
+      radial-gradient(#d3d3cd 1.5px, transparent 1.5px),
+      radial-gradient(#d3d3cd 1.5px, #eeeeea 1.5px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+  }
+
+  /* チップスタイル */
+  .chip {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    border: 0.5px solid #e2e2dc;
+    background: #f2f2ef;
+    color: #55554f;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .chip:hover { background: #e8e8e2; }
+  .chip.active {
+    background: #F5C4B3;
+    border-color: #D85A30;
+    color: #4A1B0C;
+    font-weight: 600;
+  }
+
+  /* タグ */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f2f2ef;
+    border: 0.5px solid #e2e2dc;
+    color: #55554f;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+  }
+
+  /* マップピン */
+  .pin {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .pin:hover { transform: translate(-50%, -50%) scale(1.25); }
+
+  /* アクションボタン */
+  .action-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 4px;
+    border-radius: 10px;
+    background: #f7f7f5;
+    border: 0.5px solid #e2e2dc;
+    color: #3a3a36;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .action-btn:hover { background: #eee; }
+
+  /* トグルボタン */
+  .toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: #f7f7f5;
+    border: 0.5px solid #e2e2dc;
+    color: #3a3a36;
+    font-size: 12px;
+    flex: 1;
+    cursor: pointer;
+  }
+  .toggle-btn.active {
+    background: #F5C4B3;
+    border-color: #D85A30;
+    color: #4A1B0C;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body class="w-screen h-screen overflow-hidden relative font-sans text-[#1a1a17]">
+
+  <!-- ==========================================
+    1. 背景：全画面マップ（100vw × 100vh）
+  =========================================== -->
+  <div id="map" class="absolute inset-0 w-full h-full dummy-map-bg">
+    
+    <!-- マップ右上の浮遊凡例 -->
+    <div class="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-md border border-[#e2e2dc] rounded-xl px-3 py-2 shadow-md flex items-center gap-3 text-xs">
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#EF9F27]"></span><span>ちょめめ</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#D85A30]"></span><span>超超うまい</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#F0997B]"></span><span>超うまい</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#FAEEDA] border border-amber-300"></span><span>うまい</span></div>
+    </div>
+
+    <!-- ダミーピン -->
+    <div class="pin bg-[#EF9F27] top-1/3 left-1/2" onclick="toggleSheet('とみ田')"></div>
+    <div class="pin bg-[#D85A30] top-1/2 left-2/3" onclick="toggleSheet('王道家')"></div>
+    <div class="pin bg-[#F0997B] top-2/3 left-1/3" onclick="toggleSheet('六角家')"></div>
+
+    <!-- 地図操作のヒント -->
+    <div class="absolute bottom-4 right-4 bg-black/60 text-white text-xs px-3 py-1.5 rounded-full backdrop-blur-sm pointer-events-none">
+      ドラッグ・ズームで地図操作（カード以外の場所）
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+    2. 画面レイヤー（pointer-events: noneで地図操作を阻害しない）
+  =========================================== -->
+  <div class="fixed inset-0 z-20 pointer-events-none p-4 flex flex-col justify-between">
+    
+    <!-- 左上エリア：浮遊コントロールパネル ＋ 選択時の詳細カード -->
+    <div class="w-full max-w-[380px] space-y-3">
+      
+      <!-- [A] 浮遊コントロールカード（常駐） -->
+      <div class="pointer-events-auto bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-[#e2e2dc] transition-all">
+        <!-- アプリタイトル ＆ 通知 -->
+        <div class="flex items-center justify-between mb-3">
+          <h1 class="text-base font-extrabold flex items-center gap-1.5">
+            <span>🍜</span> RAMEN MAP
+          </h1>
+          <button class="text-gray-500 hover:text-gray-800 text-lg p-1"><i class="ti ti-bell"></i></button>
+        </div>
+
+        <!-- 検索バー -->
+        <div class="flex items-center gap-2 bg-[#f2f2ef] border border-[#e2e2dc] rounded-xl px-3 py-2 mb-2.5">
+          <i class="ti ti-search text-[#8a8a84]"></i>
+          <input type="text" placeholder="ラーメンを検索..." class="bg-transparent text-sm w-full outline-none">
+        </div>
+
+        <!-- クイックフィルター -->
+        <div class="flex gap-1.5 overflow-x-auto pb-1 mb-2">
+          <button class="chip active">営業中</button>
+          <button class="chip">未訪問</button>
+          <button class="chip">SRY</button>
+          <button class="chip flex items-center gap-1" onclick="openFilterModal()">
+            フィルター <i class="ti ti-chevron-down text-[10px]"></i>
+          </button>
+        </div>
+
+        <div class="text-xs text-[#9a9a94]">5件中5件表示</div>
+      </div>
+
+      <!-- [B] 浮遊店舗詳細カード（ピンをクリックした時だけその下に表示） -->
+      <div id="shopSheet" class="pointer-events-auto bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-[#e2e2dc] hidden transition-all animate-fade-in">
+        <div class="flex justify-between items-start mb-2">
+          <h3 id="sheetName" class="text-base font-bold text-[#1a1a17]">中華そば とみ田</h3>
+          <button onclick="closeSheet()" class="text-gray-400 hover:text-gray-700 text-xl leading-none"><i class="ti ti-x"></i></button>
+        </div>
+
+        <!-- バッジ群 -->
+        <div class="flex flex-wrap gap-1.5 mb-2">
+          <span class="bg-[#EF9F27] text-[#412402] px-2.5 py-0.5 rounded-full text-xs font-bold">ちょめめ</span>
+          <span class="tag">豚骨</span>
+          <span class="tag">つけ麺</span>
+        </div>
+
+        <!-- SRY受賞 -->
+        <div class="flex items-center gap-1 text-[#854F0B] text-xs font-semibold mb-2">
+          <i class="ti ti-trophy"></i> SRY 2023 つけ麺部門 受賞
+        </div>
+
+        <!-- 営業ステータス -->
+        <div class="flex items-center gap-2 text-xs mb-2">
+          <span class="inline-flex items-center gap-1.5 font-semibold text-[#0F6E56]">
+            <span class="w-2 h-2 rounded-full bg-[#1D9E75]"></span> 営業中
+          </span>
+          <span class="text-gray-400">11:00 – 15:00</span>
+        </div>
+
+        <!-- 入店・決済ルール -->
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <span class="tag"><i class="ti ti-notebook"></i> 記帳制</span>
+          <span class="tag"><i class="ti ti-ticket"></i> 食券後買い</span>
+          <span class="tag">💳 電子マネー</span>
+        </div>
+
+        <!-- アクションボタン -->
+        <div class="flex gap-2 mb-2">
+          <button class="action-btn"><i class="ti ti-route text-base"></i>経路</button>
+          <a href="#" class="action-btn"><i class="ti ti-brand-instagram text-base"></i>Instagram</a>
+          <a href="#" class="action-btn"><i class="ti ti-brand-youtube text-base"></i>YouTube</a>
+        </div>
+
+        <!-- トグルボタン -->
+        <div class="flex gap-2">
+          <button class="toggle-btn"><i class="ti ti-heart"></i>お気に入り</button>
+          <button class="toggle-btn active"><i class="ti ti-check"></i>行った</button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- 下部：浮遊ボトムナビ（PCでも左下または中央下にすっきり配置） -->
+    <div class="pointer-events-auto bg-white/95 backdrop-blur-md border border-[#e2e2dc] rounded-2xl shadow-xl w-fit px-4 py-1.5 flex items-center gap-6">
+      <button class="flex flex-col items-center gap-0.5 text-[#D85A30] font-bold text-xs">
+        <i class="ti ti-map-pin text-lg"></i>
+        <span>店舗検索</span>
+      </button>
+      <button class="flex flex-col items-center gap-0.5 text-gray-400 hover:text-gray-700 text-xs">
+        <i class="ti ti-heart text-lg"></i>
+        <span>お気に入り</span>
+      </button>
+      <button class="flex flex-col items-center gap-0.5 text-gray-400 hover:text-gray-700 text-xs">
+        <i class="ti ti-user text-lg"></i>
+        <span>マイページ</span>
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+    3. 浮遊フィルターモーダル（画面中央にポップアップ）
+  =========================================== -->
+  <div id="filterBackdrop" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 hidden" onclick="closeFilterModal()"></div>
+  
+  <div id="filterModal" class="fixed inset-0 m-auto z-50 w-full max-w-[420px] h-fit max-h-[85vh] bg-white rounded-2xl p-5 shadow-2xl border border-[#e2e2dc] hidden overflow-y-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-base font-bold text-[#1a1a17]">⚙️ 絞り込み条件</h3>
+      <button onclick="closeFilterModal()" class="text-gray-400 hover:text-gray-700 text-xl"><i class="ti ti-x"></i></button>
+    </div>
+
+    <div class="space-y-4 text-xs">
+      <div>
+        <p class="font-semibold text-gray-500 mb-1.5">評価ランク</p>
+        <div class="flex flex-wrap gap-1.5">
+          <button class="chip active">ちょめめ</button>
+          <button class="chip">超超うまい</button>
+          <button class="chip">超うまい</button>
+          <button class="chip">うまい</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-semibold text-gray-500 mb-1.5">味のジャンル</p>
+        <div class="flex flex-wrap gap-1.5">
+          <button class="chip">醤油</button>
+          <button class="chip">塩</button>
+          <button class="chip">味噌</button>
+          <button class="chip active">豚骨</button>
+          <button class="chip">二郎系</button>
+          <button class="chip">家系</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-semibold text-gray-500 mb-1.5">入店・食券</p>
+        <div class="flex flex-wrap gap-1.5">
+          <button class="chip">記帳制</button>
+          <button class="chip">整理券制</button>
+          <button class="chip">並び順制</button>
+          <button class="chip">食券先買い</button>
+          <button class="chip">食券後買い</button>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-semibold text-gray-500 mb-1.5">設備・こだわり</p>
+        <div class="flex flex-wrap gap-1.5">
+          <button class="chip">電子マネー対応</button>
+          <button class="chip">駐車場あり</button>
+          <button class="chip">テーブル席あり</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 下部ボタン -->
+    <div class="mt-6 flex gap-2">
+      <button class="flex-1 py-2.5 rounded-xl border border-[#e2e2dc] bg-[#f7f7f5] text-xs font-medium text-gray-700 hover:bg-gray-100">クリア</button>
+      <button onclick="closeFilterModal()" class="flex-[2] py-2.5 rounded-xl bg-[#D85A30] text-xs font-bold text-white hover:bg-[#c04d26]">検索する</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleSheet(name) {
+      const sheet = document.getElementById('shopSheet');
+      document.getElementById('sheetName').textContent = name;
+      sheet.classList.remove('hidden');
+    }
+
+    function closeSheet() {
+      document.getElementById('shopSheet').classList.add('hidden');
+    }
+
+    function openFilterModal() {
+      document.getElementById('filterBackdrop').classList.remove('hidden');
+      document.getElementById('filterModal').classList.remove('hidden');
+    }
+
+    function closeFilterModal() {
+      document.getElementById('filterBackdrop').classList.add('hidden');
+      document.getElementById('filterModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

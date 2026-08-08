@@ -1,0 +1,130 @@
+/* ============================================================
+   マップ & コントロール
+   ============================================================ */
+
+/* --- 全画面マップ --- */
+#map {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-map);
+  touch-action: pan-x pan-y;
+}
+
+/* MapLibre overrides */
+.maplibregl-ctrl-attrib {
+  font-size: 10px !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: var(--text-muted) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+.maplibregl-ctrl-attrib a {
+  color: var(--text-secondary) !important;
+}
+
+/* === 凡例 (マップ右上) === */
+#map-legend {
+  position: absolute;
+  top: calc(16px + var(--safe-top));
+  right: 16px;
+  z-index: var(--z-controls);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-md);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  display: inline-block;
+}
+
+.legend-text {
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* === 現在地ボタン === */
+#geolocate-btn {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 24px);
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 0.5px solid var(--border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-controls);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+  font-size: 20px;
+}
+
+#geolocate-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+#geolocate-btn:active {
+  transform: scale(0.92);
+}
+
+#geolocate-btn.active {
+  color: var(--status-open);
+  border-color: var(--status-open);
+  animation: geolocatePulse 2s infinite;
+}
+
+/* 現在地マーカー */
+.current-location-marker {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--status-open);
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 2px rgba(29, 158, 117, 0.3), var(--shadow-sm);
+}
+
+.current-location-pulse {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(29, 158, 117, 0.15);
+  animation: pulse 2s ease-in-out infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* --- PC: 現在地ボタン位置調整 --- */
+@media (min-width: 768px) {
+  #geolocate-btn {
+    bottom: 24px;
+  }
+}

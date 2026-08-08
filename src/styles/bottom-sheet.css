@@ -1,0 +1,240 @@
+/* ============================================================
+   店舗詳細カード (ボトムシート)
+   モバイル: 画面下からスライドアップ
+   PC: 左上コントロールカードの直下に浮遊表示
+   ============================================================ */
+
+/* --- オーバーレイ (無効化) --- */
+#bottom-sheet-overlay {
+  display: none;
+}
+
+/* --- 店舗詳細カード --- */
+#bottom-sheet {
+  pointer-events: auto;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-2xl);
+  border: 0.5px solid var(--border);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+
+  /* デフォルト: 非表示 */
+  display: none;
+  animation: fadeIn var(--transition-normal);
+}
+
+#bottom-sheet.open {
+  display: block;
+}
+
+/* Content */
+#sheet-content {
+  padding: 16px;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+/* Header */
+#sheet-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#sheet-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  flex: 1;
+  margin: 0;
+}
+
+#sheet-close {
+  color: var(--text-placeholder);
+  font-size: 20px;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color var(--transition-fast);
+}
+
+#sheet-close:hover {
+  color: var(--text-primary);
+}
+
+/* Badges */
+#sheet-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.sheet-rating-badge {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.sheet-genre-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-tertiary);
+  border: 0.5px solid var(--border);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+}
+
+/* SRY */
+#sheet-sry {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  color: #854F0B;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+#sheet-sry.visible {
+  display: flex;
+}
+
+/* Status */
+#sheet-status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-label {
+  font-weight: 600;
+}
+
+.status-hours {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* Entry Tags */
+#sheet-entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.entry-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-tertiary);
+  border: 0.5px solid var(--border);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+}
+
+/* Actions */
+#sheet-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.actionbtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border);
+  color: var(--text-primary);
+  font-size: 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.actionbtn i {
+  font-size: 16px;
+}
+
+.actionbtn:hover {
+  background: #eee;
+}
+
+/* Toggles */
+#sheet-toggles {
+  display: flex;
+  gap: 8px;
+}
+
+.togglebtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border);
+  color: var(--text-primary);
+  font-size: 12px;
+  flex: 1;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.togglebtn.active {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
+/* ============================================================
+   モバイル (< 768px): ボトムシート方式
+   ============================================================ */
+@media (max-width: 767px) {
+  #bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    z-index: calc(var(--z-overlay) + 1);
+    max-height: 70vh;
+    display: block;
+    transform: translateY(100%);
+    transition: transform var(--transition-normal);
+    animation: none;
+  }
+
+  #bottom-sheet.open {
+    transform: translateY(0);
+    display: block;
+  }
+}

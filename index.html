@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="東京都内のラーメン店を地図上で検索。営業中フィルター、評価ラベル、味ジャンル別の絞り込みに対応した高速ラーメンマップ。" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta property="og:title" content="ラーメンマップ - 東京" />
+  <meta property="og:description" content="東京都内のラーメン店を地図上で検索。評価・ジャンル・営業中フィルター対応。" />
+  <meta property="og:type" content="website" />
+  <title>ラーメンマップ - 東京</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+
+<body>
+
+  <!-- ===== 1. 全画面マップ ===== -->
+  <div id="map">
+    <!-- 評価ランク凡例 (マップ右上) -->
+    <div id="map-legend"></div>
+  </div>
+
+  <!-- ===== 2. UIオーバーレイ層 (pointer-events: none) ===== -->
+  <div id="ui-layer">
+
+    <!-- === 上部エリア === -->
+    <div id="ui-top">
+
+      <!-- [A] コントロールカード (常駐: タイトル・検索・フィルター・件数) -->
+      <div id="control-card">
+        <!-- タイトル & 通知 -->
+        <div id="control-header">
+          <h1 id="app-title">🍜 RAMEN MAP</h1>
+          <button id="notification-btn" aria-label="通知"><i class="ti ti-bell"></i></button>
+        </div>
+
+        <!-- 検索バー -->
+        <div id="search-container">
+          <div id="search-bar">
+            <i class="ti ti-search" id="search-icon"></i>
+            <input type="text" id="search-input" placeholder="ラーメンを検索..." autocomplete="off" />
+            <button id="search-clear" aria-label="検索クリア" style="display:none;">
+              <i class="ti ti-x"></i>
+            </button>
+          </div>
+          <div id="search-results" style="display:none;"></div>
+        </div>
+
+        <!-- クイックフィルター -->
+        <div id="filter-bar">
+          <button class="chip" data-filter="open" id="filter-open">営業中</button>
+          <button class="chip" data-filter="unvisited" id="filter-unvisited">未訪問</button>
+          <button class="chip" data-filter="sry" id="filter-sry">SRY</button>
+          <button class="chip" id="filter-toggle">
+            フィルター <i class="ti ti-chevron-down" style="font-size:10px; vertical-align:-1px;"></i>
+          </button>
+        </div>
+
+        <!-- 件数表示 -->
+        <div id="count-label"><span id="total-count">0</span>件中<span id="visible-count">0</span>件表示</div>
+      </div>
+
+      <!-- [B] 店舗詳細カード (ピンクリック時に表示) -->
+      <div id="bottom-sheet">
+        <div id="sheet-content">
+          <div id="sheet-header">
+            <div id="sheet-title-row">
+              <h2 id="sheet-name"></h2>
+              <button id="sheet-close" aria-label="閉じる"><i class="ti ti-x"></i></button>
+            </div>
+            <div id="sheet-badges"></div>
+            <div id="sheet-sry"></div>
+          </div>
+
+          <div id="sheet-status-row"></div>
+          <div id="sheet-entry-tags"></div>
+
+          <div id="sheet-actions">
+            <button class="actionbtn" id="sheet-action-route">
+              <i class="ti ti-route"></i>経路
+            </button>
+            <a class="actionbtn" id="sheet-action-instagram" target="_blank" rel="noopener noreferrer">
+              <i class="ti ti-brand-instagram"></i>Instagram
+            </a>
+            <a class="actionbtn" id="sheet-action-youtube" target="_blank" rel="noopener noreferrer">
+              <i class="ti ti-brand-youtube"></i>YouTube
+            </a>
+          </div>
+
+          <div id="sheet-toggles">
+            <button class="togglebtn" id="sheet-favorite">
+              <i class="ti ti-heart"></i>お気に入り
+            </button>
+            <button class="togglebtn" id="sheet-visited">
+              <i class="ti ti-check"></i>行った
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- === 下部エリア === -->
+    <div id="ui-bottom">
+      <!-- ボトムナビ（モバイル: 全幅固定 / PC: 浮遊ピル） -->
+      <nav id="bottom-nav">
+        <button class="nav-tab active" data-tab="search">
+          <i class="ti ti-map-pin"></i><span>店舗検索</span>
+        </button>
+        <button class="nav-tab" data-tab="favorite">
+          <i class="ti ti-heart"></i><span>お気に入り</span>
+        </button>
+        <button class="nav-tab" data-tab="mypage">
+          <i class="ti ti-user"></i><span>マイページ</span>
+        </button>
+      </nav>
+    </div>
+
+  </div>
+
+  <!-- ===== 3. 現在地ボタン ===== -->
+  <button id="geolocate-btn" aria-label="現在地に移動">
+    <i class="ti ti-current-location"></i>
+  </button>
+
+  <!-- ===== 4. フィルターモーダル ===== -->
+  <div id="modal-backdrop"></div>
+  <div id="filter-modal">
+    <div class="modal-header">
+      <span class="modal-title">絞り込み条件</span>
+      <button id="filter-modal-close" aria-label="閉じる"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="filter-section">
+        <p class="filter-label">評価ランク</p>
+        <div class="filter-chips">
+          <button class="chip rating" data-filter="rating" data-value="ちょめめ"
+            style="--c-bg:#EF9F27; --c-text:#412402;">ちょめめ</button>
+          <button class="chip rating" data-filter="rating" data-value="超超うまい"
+            style="--c-bg:#D85A30; --c-text:#4A1B0C;">超超うまい</button>
+          <button class="chip rating" data-filter="rating" data-value="超うまい"
+            style="--c-bg:#F0997B; --c-text:#4A1B0C;">超うまい</button>
+          <button class="chip rating" data-filter="rating" data-value="うまい"
+            style="--c-bg:#FAEEDA; --c-text:#633806;">うまい</button>
+        </div>
+      </div>
+      <div class="filter-section">
+        <p class="filter-label">味のジャンル</p>
+        <div class="filter-chips">
+          <button class="chip genre" data-filter="genre" data-value="醤油">醤油</button>
+          <button class="chip genre" data-filter="genre" data-value="塩">塩</button>
+          <button class="chip genre" data-filter="genre" data-value="味噌">味噌</button>
+          <button class="chip genre" data-filter="genre" data-value="豚骨">豚骨</button>
+          <button class="chip genre" data-filter="genre" data-value="二郎系">二郎系</button>
+          <button class="chip genre" data-filter="genre" data-value="家系">家系</button>
+          <button class="chip genre" data-filter="genre" data-value="煮干し">煮干し</button>
+          <button class="chip genre" data-filter="genre" data-value="鶏白湯">鶏白湯</button>
+          <button class="chip genre" data-filter="genre" data-value="辛い系">辛い系</button>
+        </div>
+      </div>
+      <div class="filter-section">
+        <p class="filter-label">入店・食券</p>
+        <div class="filter-chips">
+          <button class="chip entry" data-filter="entry" data-value="記帳制">記帳制</button>
+          <button class="chip entry" data-filter="entry" data-value="整理券制">整理券制</button>
+          <button class="chip entry" data-filter="entry" data-value="並び順">並び順</button>
+          <button class="chip ticket" data-filter="ticket" data-value="先買い">食券先買い</button>
+          <button class="chip ticket" data-filter="ticket" data-value="後買い">食券後買い</button>
+        </div>
+      </div>
+      <div class="filter-section">
+        <p class="filter-label">設備・こだわり</p>
+        <div class="filter-chips">
+          <button class="chip facility" data-filter="facility" data-value="cashless">電子マネー対応</button>
+          <button class="chip facility" data-filter="facility" data-value="parking">駐車場あり</button>
+          <button class="chip facility" data-filter="facility" data-value="tableSeating">テーブル席あり</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="filter-reset" class="modal-btn-secondary">クリア</button>
+        <button id="filter-apply" class="modal-btn-primary">検索する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 5. モバイル用ボトムシートオーバーレイ ===== -->
+  <div id="bottom-sheet-overlay"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,210 @@
+/* ============================================================
+   フィルター: クイックフィルターバー + モーダル
+   ============================================================ */
+
+/* --- クイックフィルターバー --- */
+#filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  scrollbar-width: none;
+}
+
+#filter-bar::-webkit-scrollbar { display: none; }
+
+/* === チップ共通 === */
+.chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  border: 0.5px solid var(--border);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.chip:hover { background: #e8e8e2; }
+.chip:active { transform: scale(0.96); }
+
+.chip.active {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
+.chip.rating.active {
+  background: var(--c-bg);
+  border-color: var(--c-bg);
+  color: var(--c-text);
+}
+
+/* === フィルターモーダル === */
+#modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: var(--z-overlay);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+#modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* モバイル: ボトムシート形式 */
+#filter-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-primary);
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+  transform: translateY(100%);
+  transition: transform var(--transition-normal);
+  padding: 16px;
+  padding-bottom: calc(16px + var(--safe-bottom));
+  border-top: 0.5px solid var(--border);
+  z-index: var(--z-modal);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#filter-modal.open {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+#filter-modal-close {
+  color: var(--text-placeholder);
+  font-size: 20px;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+#filter-modal-close:hover { color: var(--text-primary); }
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin: 0;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.modal-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.modal-btn-secondary {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-btn-secondary:hover { background: var(--border); }
+
+.modal-btn-primary {
+  flex: 2;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-btn-primary:hover { background: var(--accent-hover); }
+
+/* --- モバイル: フィルターバー パディング --- */
+@media (max-width: 767px) {
+  #filter-bar {
+    padding: 6px 12px;
+    margin-bottom: 0;
+  }
+}
+
+/* --- PC (768px+): 画面中央ポップアップ --- */
+@media (min-width: 768px) {
+  #filter-modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    max-width: 420px;
+    max-height: 85vh;
+    border-radius: var(--radius-2xl);
+    border: 0.5px solid var(--border);
+    box-shadow: var(--shadow-xl);
+    padding: 20px;
+  }
+
+  #filter-modal.open {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
