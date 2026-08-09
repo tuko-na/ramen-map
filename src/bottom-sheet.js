@@ -7,7 +7,6 @@ import { isFavorite, toggleFavorite, isVisited, toggleVisited } from './favorite
 const sheet = document.getElementById('bottom-sheet');
 const nameEl = document.getElementById('sheet-name');
 const badgesEl = document.getElementById('sheet-badges');
-const sryEl = document.getElementById('sheet-sry');
 const statusRow = document.getElementById('sheet-status-row');
 const entryTags = document.getElementById('sheet-entry-tags');
 const actionRoute = document.getElementById('sheet-action-route');
@@ -106,16 +105,19 @@ export function openSheet(feature) {
     });
   }
 
-  // SRY
-  let sryData = props.sry;
-  if (typeof sryData === 'string') {
-    try { sryData = JSON.parse(sryData); } catch { sryData = null; }
+  // TRY
+  let tryData = props.try || props.sry;
+  if (typeof tryData === 'string') {
+    try { tryData = JSON.parse(tryData); } catch { tryData = null; }
   }
-  if (sryData) {
-    sryEl.classList.add('visible');
-    sryEl.innerHTML = `<i class="ti ti-trophy"></i><span>SRY ${sryData.year} ${sryData.category} 受賞</span>`;
-  } else {
-    sryEl.classList.remove('visible');
+  const tryEl = document.getElementById('sheet-try') || document.getElementById('sheet-sry');
+  if (tryEl) {
+    if (tryData && tryData.year) {
+      tryEl.classList.add('visible');
+      tryEl.innerHTML = `<i class="ti ti-trophy"></i><span>TRY ${tryData.year} ${tryData.category || ''} 受賞</span>`;
+    } else {
+      tryEl.classList.remove('visible');
+    }
   }
 
   // 営業ステータス
@@ -125,12 +127,13 @@ export function openSheet(feature) {
   }
   const status = getOpenStatus(hours);
   const sc = STATUS_STYLES[status.status] || STATUS_STYLES.closed;
+  const hoursDisplay = status.hoursText ? status.hoursText : (hours ? '' : '営業時間情報なし');
   statusRow.innerHTML = `
     <span style="display:inline-flex;align-items:center;gap:6px;">
       <span class="status-dot" style="background:${sc.dot}"></span>
       <span class="status-label" style="color:${sc.text}">${sc.label}</span>
     </span>
-    <span class="status-hours">${status.hoursText || ''}</span>
+    <span class="status-hours">${hoursDisplay}</span>
   `;
 
   // 入店・食券タグ

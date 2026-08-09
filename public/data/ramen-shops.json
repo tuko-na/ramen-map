@@ -3,22 +3,73 @@
   "features": [
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.791, 35.736] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.791,
+          35.736
+        ]
+      },
       "properties": {
         "id": "shop-001",
         "name": "ラーメン屋 トイ・ボックス",
         "address": "東京都荒川区東日暮里1-1-3",
-        "genre": ["醤油"],
+        "genre": [
+          "醤油",
+          "つけ麺",
+          "油そば・まぜそば"
+        ],
         "rating": "超超うまい",
-        "sry": { "year": 2023, "category": "ラーメン部門" },
         "hours": {
           "mon": null,
-          "tue": [{"open": "11:00", "close": "15:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:00", "close": "15:00"}],
-          "sun": [{"open": "11:00", "close": "15:00"}]
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ]
         },
         "entryMethod": "記帳制",
         "ticketBuy": "先買い",
@@ -27,27 +78,71 @@
         "googleMapsUrl": "https://maps.google.com/?q=ラーメン屋 トイ・ボックス 東京都荒川区東日暮里1-1-3",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": {
+          "year": 2023,
+          "category": "ラーメン部門"
+        },
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.900, 35.827] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.9,
+          35.827
+        ]
+      },
       "properties": {
         "id": "shop-002",
         "name": "中華蕎麦 とみ田",
         "address": "千葉県松戸市松戸1339",
-        "genre": ["豚骨", "煮干し"],
+        "genre": [
+          "豚骨",
+          "煮干し",
+          "つけ麺"
+        ],
         "rating": "ちょめめ",
-        "sry": { "year": 2022, "category": "ラーメン部門" },
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
           "wed": null,
-          "thu": [{"open": "11:00", "close": "15:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}],
-          "sat": [{"open": "11:00", "close": "15:00"}],
-          "sun": [{"open": "11:00", "close": "15:00"}]
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ]
         },
         "entryMethod": "予約制",
         "ticketBuy": "先買い",
@@ -56,27 +151,86 @@
         "googleMapsUrl": "https://maps.google.com/?q=中華蕎麦 とみ田 千葉県松戸市松戸1339",
         "cashless": true,
         "parking": true,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": {
+          "year": 2022,
+          "category": "ラーメン部門"
+        },
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.774, 35.698] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.774,
+          35.698
+        ]
+      },
       "properties": {
         "id": "shop-003",
         "name": "麺処 ほん田 秋葉原本店",
         "address": "東京都千代田区神田花岡町1-19",
-        "genre": ["醤油", "塩"],
+        "genre": [
+          "醤油",
+          "塩"
+        ],
         "rating": "超うまい",
-        "sry": { "year": 2021, "category": "ラーメン部門" },
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
           "wed": null,
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
-          "sat": [{"open": "11:00", "close": "22:00"}],
-          "sun": [{"open": "11:00", "close": "22:00"}]
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "22:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -85,27 +239,85 @@
         "googleMapsUrl": "https://maps.google.com/?q=麺処 ほん田 秋葉原本店 東京都千代田区神田花岡町1-19",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": {
+          "year": 2021,
+          "category": "ラーメン部門"
+        },
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.523, 35.541] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.523,
+          35.541
+        ]
+      },
       "properties": {
         "id": "shop-004",
         "name": "らぁ麺 すぎ本",
         "address": "神奈川県横浜市青葉区桜台26-1",
-        "genre": ["醤油", "塩"],
+        "genre": [
+          "醤油",
+          "塩"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
           "mon": null,
           "tue": null,
-          "wed": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sun": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "21:00"}]
+          "wed": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ]
         },
         "entryMethod": "記帳制",
         "ticketBuy": "先買い",
@@ -114,27 +326,82 @@
         "googleMapsUrl": "https://maps.google.com/?q=らぁ麺 すぎ本 神奈川県横浜市青葉区桜台26-1",
         "cashless": false,
         "parking": true,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.576, 35.658] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.576,
+          35.658
+        ]
+      },
       "properties": {
         "id": "shop-005",
         "name": "柴崎亭",
         "address": "東京都調布市西つつじケ丘3-25-52",
-        "genre": ["醤油"],
+        "genre": [
+          "醤油"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
           "tue": null,
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "22:00"}],
-          "sat": [{"open": "11:00", "close": "22:00"}],
-          "sun": [{"open": "11:00", "close": "22:00"}]
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "22:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "後買い",
@@ -143,26 +410,81 @@
         "googleMapsUrl": "https://maps.google.com/?q=柴崎亭 東京都調布市西つつじケ丘3-25-52",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.442, 35.548] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.442,
+          35.548
+        ]
+      },
       "properties": {
         "id": "shop-006",
         "name": "町田汁場 しおらーめん進化",
         "address": "東京都町田市森野3-18-17",
-        "genre": ["塩"],
+        "genre": [
+          "塩"
+        ],
         "rating": "超超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:00", "close": "21:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "21:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -172,26 +494,77 @@
         "googleMapsUrl": "https://maps.google.com/?q=町田汁場 しおらーめん進化 東京都町田市森野3-18-17",
         "cashless": true,
         "parking": true,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.778, 35.698] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.778,
+          35.698
+        ]
+      },
       "properties": {
         "id": "shop-007",
         "name": "饗 くろ喜",
         "address": "東京都千代田区神田和泉町2-15",
-        "genre": ["塩"],
+        "genre": [
+          "塩"
+        ],
         "rating": "ちょめめ",
-        "sry": { "year": 2022, "category": "ラーメン部門" },
         "hours": {
-          "mon": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "20:00"}],
-          "tue": [{"open": "11:30", "close": "15:00"}],
-          "wed": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "20:00"}],
-          "thu": [{"open": "11:30", "close": "15:00"}],
-          "fri": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "20:00"}],
-          "sat": [{"open": "11:30", "close": "15:00"}],
+          "mon": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "整理券制",
@@ -201,27 +574,95 @@
         "googleMapsUrl": "https://maps.google.com/?q=饗 くろ喜 東京都千代田区神田和泉町2-15",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": {
+          "year": 2022,
+          "category": "ラーメン部門"
+        },
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.701, 35.689] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.701,
+          35.689
+        ]
+      },
       "properties": {
         "id": "shop-008",
         "name": "麺屋 海神",
         "address": "東京都新宿区新宿3-35-7",
-        "genre": ["塩"],
+        "genre": [
+          "塩",
+          "つけ麺"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "16:30", "close": "23:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "16:30", "close": "23:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "16:30", "close": "23:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "16:30", "close": "23:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "16:30", "close": "23:00"}],
-          "sat": [{"open": "11:00", "close": "23:00"}],
-          "sun": [{"open": "11:00", "close": "23:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "16:30",
+              "close": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "16:30",
+              "close": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "16:30",
+              "close": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "16:30",
+              "close": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "16:30",
+              "close": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "なし",
@@ -230,26 +671,82 @@
         "googleMapsUrl": "https://maps.google.com/?q=麺屋 海神 東京都新宿区新宿3-35-7",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.649, 35.702] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.649,
+          35.702
+        ]
+      },
       "properties": {
         "id": "shop-009",
         "name": "らぁめん山と樹",
         "address": "東京都杉並区高円寺南4-5-4",
-        "genre": ["醤油", "塩"],
+        "genre": [
+          "醤油",
+          "塩"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:30", "close": "15:30"}],
-          "tue": [{"open": "11:30", "close": "15:30"}, {"open": "18:00", "close": "21:00"}],
-          "wed": [{"open": "11:30", "close": "15:30"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:30", "close": "15:30"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:30", "close": "15:30"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:30", "close": "21:00"}],
+          "mon": [
+            {
+              "open": "11:30",
+              "close": "15:30"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:30",
+              "close": "15:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:30",
+              "close": "15:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "15:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "15:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:30",
+              "close": "21:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -259,27 +756,87 @@
         "googleMapsUrl": "https://maps.google.com/?q=らぁめん山と樹 東京都杉並区高円寺南4-5-4",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.731, 35.708] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.731,
+          35.708
+        ]
+      },
       "properties": {
         "id": "shop-010",
         "name": "三ん寅",
         "address": "東京都新宿区山吹町362",
-        "genre": ["味噌"],
+        "genre": [
+          "味噌",
+          "油そば・まぜそば"
+        ],
         "rating": "超超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "17:30", "close": "20:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "17:30", "close": "20:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:30",
+              "close": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:30",
+              "close": "20:00"
+            }
+          ],
           "thu": null,
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "17:30", "close": "20:00"}],
-          "sat": [{"open": "11:00", "close": "15:00"}, {"open": "17:30", "close": "20:00"}],
-          "sun": [{"open": "11:00", "close": "15:00"}, {"open": "17:30", "close": "20:00"}]
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:30",
+              "close": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:30",
+              "close": "20:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:30",
+              "close": "20:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -288,27 +845,90 @@
         "googleMapsUrl": "https://maps.google.com/?q=三ん寅 東京都新宿区山吹町362",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.610, 35.707] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.61,
+          35.707
+        ]
+      },
       "properties": {
         "id": "shop-011",
         "name": "味噌っ子 ふっく",
         "address": "東京都杉並区上荻2-40-11",
-        "genre": ["味噌"],
+        "genre": [
+          "味噌"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
           "tue": null,
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sun": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}]
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -317,27 +937,90 @@
         "googleMapsUrl": "https://maps.google.com/?q=味噌っ子 ふっく 東京都杉並区上荻2-40-11",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.863, 35.681] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.863,
+          35.681
+        ]
+      },
       "properties": {
         "id": "shop-012",
         "name": "大島",
         "address": "東京都江戸川区船堀6-7-13",
-        "genre": ["味噌"],
+        "genre": [
+          "味噌"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
           "mon": null,
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "20:30"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "20:30"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "20:30"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "20:30"}],
-          "sat": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "20:30"}],
-          "sun": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "20:30"}]
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:30"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:30"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:30"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:30"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:30"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:30"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -346,27 +1029,71 @@
         "googleMapsUrl": "https://maps.google.com/?q=大島 東京都江戸川区船堀6-7-13",
         "cashless": false,
         "parking": true,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.715, 35.731] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.715,
+          35.731
+        ]
+      },
       "properties": {
         "id": "shop-013",
         "name": "麺処 花田 池袋店",
         "address": "東京都豊島区東池袋1-23-8",
-        "genre": ["味噌"],
+        "genre": [
+          "味噌"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "23:00"}],
-          "tue": [{"open": "11:00", "close": "23:00"}],
-          "wed": [{"open": "11:00", "close": "23:00"}],
-          "thu": [{"open": "11:00", "close": "23:00"}],
-          "fri": [{"open": "11:00", "close": "23:00"}],
-          "sat": [{"open": "11:00", "close": "23:00"}],
-          "sun": [{"open": "11:00", "close": "23:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -375,27 +1102,71 @@
         "googleMapsUrl": "https://maps.google.com/?q=麺処 花田 池袋店 東京都豊島区東池袋1-23-8",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.816, 35.787] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.816,
+          35.787
+        ]
+      },
       "properties": {
         "id": "shop-014",
         "name": "博多長浜らーめん 田中商店",
         "address": "東京都足立区一ツ家2-14-6",
-        "genre": ["豚骨"],
+        "genre": [
+          "豚骨"
+        ],
         "rating": "超超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "18:00", "close": "28:00"}],
-          "tue": [{"open": "18:00", "close": "28:00"}],
-          "wed": [{"open": "18:00", "close": "28:00"}],
-          "thu": [{"open": "18:00", "close": "28:00"}],
-          "fri": [{"open": "18:00", "close": "28:00"}],
-          "sat": [{"open": "18:00", "close": "28:00"}],
-          "sun": [{"open": "18:00", "close": "28:00"}]
+          "mon": [
+            {
+              "open": "18:00",
+              "close": "28:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "18:00",
+              "close": "28:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "18:00",
+              "close": "28:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "18:00",
+              "close": "28:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "18:00",
+              "close": "28:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "18:00",
+              "close": "28:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "18:00",
+              "close": "28:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "後買い",
@@ -404,26 +1175,66 @@
         "googleMapsUrl": "https://maps.google.com/?q=博多長浜らーめん 田中商店 東京都足立区一ツ家2-14-6",
         "cashless": true,
         "parking": true,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.650, 35.706] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.65,
+          35.706
+        ]
+      },
       "properties": {
         "id": "shop-015",
         "name": "ラーメン健太",
         "address": "東京都杉並区高円寺北2-22-6",
-        "genre": ["豚骨"],
+        "genre": [
+          "豚骨",
+          "つけ麺"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:30", "close": "14:00"}],
-          "tue": [{"open": "11:30", "close": "14:00"}],
-          "wed": [{"open": "11:30", "close": "14:00"}],
-          "thu": [{"open": "11:30", "close": "14:00"}],
-          "fri": [{"open": "11:30", "close": "14:00"}],
-          "sat": [{"open": "11:30", "close": "14:00"}],
+          "mon": [
+            {
+              "open": "11:30",
+              "close": "14:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:30",
+              "close": "14:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:30",
+              "close": "14:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "14:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "14:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:30",
+              "close": "14:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -433,27 +1244,82 @@
         "googleMapsUrl": "https://maps.google.com/?q=ラーメン健太 東京都杉並区高円寺北2-22-6",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.663, 35.722] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.663,
+          35.722
+        ]
+      },
       "properties": {
         "id": "shop-016",
         "name": "無鉄砲 東京中野店",
         "address": "東京都中野区江古田4-5-1",
-        "genre": ["豚骨"],
+        "genre": [
+          "豚骨"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
           "mon": null,
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "23:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "23:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "23:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "23:00"}],
-          "sat": [{"open": "11:00", "close": "23:00"}],
-          "sun": [{"open": "11:00", "close": "23:00"}]
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -462,26 +1328,85 @@
         "googleMapsUrl": "https://maps.google.com/?q=無鉄砲 東京中野店 東京都中野区江古田4-5-1",
         "cashless": false,
         "parking": true,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.742, 35.648] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.742,
+          35.648
+        ]
+      },
       "properties": {
         "id": "shop-017",
         "name": "ラーメン二郎 三田本店",
         "address": "東京都港区三田2-16-4",
-        "genre": ["二郎系"],
+        "genre": [
+          "二郎系"
+        ],
         "rating": "ちょめめ",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "08:30", "close": "15:00"}, {"open": "17:00", "close": "20:00"}],
-          "tue": [{"open": "08:30", "close": "15:00"}, {"open": "17:00", "close": "20:00"}],
-          "wed": [{"open": "08:30", "close": "15:00"}, {"open": "17:00", "close": "20:00"}],
-          "thu": [{"open": "08:30", "close": "15:00"}, {"open": "17:00", "close": "20:00"}],
-          "fri": [{"open": "08:30", "close": "15:00"}, {"open": "17:00", "close": "20:00"}],
-          "sat": [{"open": "08:30", "close": "15:00"}],
+          "mon": [
+            {
+              "open": "08:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "08:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "08:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "08:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "08:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "08:30",
+              "close": "15:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -491,26 +1416,85 @@
         "googleMapsUrl": "https://maps.google.com/?q=ラーメン二郎 三田本店 東京都港区三田2-16-4",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.544, 35.753] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.544,
+          35.753
+        ]
+      },
       "properties": {
         "id": "shop-018",
         "name": "ラーメン二郎 ひばりヶ丘駅前店",
         "address": "東京都西東京市谷戸町3-27-24",
-        "genre": ["二郎系"],
+        "genre": [
+          "二郎系"
+        ],
         "rating": "超超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:30", "close": "14:30"}, {"open": "18:00", "close": "21:00"}],
-          "tue": [{"open": "11:30", "close": "14:30"}, {"open": "18:00", "close": "21:00"}],
-          "wed": [{"open": "11:30", "close": "14:30"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:30", "close": "14:30"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:30", "close": "14:30"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:00", "close": "17:00"}],
+          "mon": [
+            {
+              "open": "11:30",
+              "close": "14:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:30",
+              "close": "14:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:30",
+              "close": "14:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "14:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "14:30"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "17:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -520,27 +1504,67 @@
         "googleMapsUrl": "https://maps.google.com/?q=ラーメン二郎 ひばりヶ丘駅前店 東京都西東京市谷戸町3-27-24",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.734, 35.772] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.734,
+          35.772
+        ]
+      },
       "properties": {
         "id": "shop-019",
         "name": "ラーメン富士丸 神谷本店",
         "address": "東京都北区神谷3-29-11",
-        "genre": ["二郎系"],
+        "genre": [
+          "二郎系",
+          "油そば・まぜそば"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
           "mon": null,
-          "tue": [{"open": "18:00", "close": "26:00"}],
-          "wed": [{"open": "18:00", "close": "26:00"}],
-          "thu": [{"open": "18:00", "close": "26:00"}],
-          "fri": [{"open": "18:00", "close": "26:00"}],
-          "sat": [{"open": "18:00", "close": "26:00"}],
-          "sun": [{"open": "18:00", "close": "26:00"}]
+          "tue": [
+            {
+              "open": "18:00",
+              "close": "26:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "18:00",
+              "close": "26:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "18:00",
+              "close": "26:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "18:00",
+              "close": "26:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "18:00",
+              "close": "26:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "18:00",
+              "close": "26:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -549,27 +1573,66 @@
         "googleMapsUrl": "https://maps.google.com/?q=ラーメン富士丸 神谷本店 東京都北区神谷3-29-11",
         "cashless": false,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.701, 35.696] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.701,
+          35.696
+        ]
+      },
       "properties": {
         "id": "shop-020",
         "name": "ラーメン二郎 歌舞伎町店",
         "address": "東京都新宿区歌舞伎町2-37-5",
-        "genre": ["二郎系"],
+        "genre": [
+          "二郎系"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:30", "close": "26:30"}],
-          "tue": [{"open": "11:30", "close": "26:30"}],
+          "mon": [
+            {
+              "open": "11:30",
+              "close": "26:30"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:30",
+              "close": "26:30"
+            }
+          ],
           "wed": null,
-          "thu": [{"open": "11:30", "close": "26:30"}],
-          "fri": [{"open": "11:30", "close": "26:30"}],
-          "sat": [{"open": "11:30", "close": "26:30"}],
-          "sun": [{"open": "11:30", "close": "26:30"}]
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "26:30"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "26:30"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:30",
+              "close": "26:30"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:30",
+              "close": "26:30"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -578,26 +1641,85 @@
         "googleMapsUrl": "https://maps.google.com/?q=ラーメン二郎 歌舞伎町店 東京都新宿区歌舞伎町2-37-5",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.717, 35.562] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.717,
+          35.562
+        ]
+      },
       "properties": {
         "id": "shop-021",
         "name": "らーめん 飛粋",
         "address": "東京都大田区蒲田5-2-5",
-        "genre": ["家系"],
+        "genre": [
+          "家系"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "20:00"}],
-          "tue": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "20:00"}],
-          "wed": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "20:00"}],
-          "thu": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "20:00"}],
-          "fri": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "20:00"}],
-          "sat": [{"open": "11:00", "close": "15:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "20:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -607,27 +1729,67 @@
         "googleMapsUrl": "https://maps.google.com/?q=らーめん 飛粋 東京都大田区蒲田5-2-5",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.772, 35.704] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.772,
+          35.704
+        ]
+      },
       "properties": {
         "id": "shop-022",
         "name": "王道家直系 IEKEI TOKYO",
         "address": "東京都千代田区外神田5-2-7",
-        "genre": ["家系"],
+        "genre": [
+          "家系",
+          "つけ麺"
+        ],
         "rating": "ちょめめ",
-        "sry": { "year": 2021, "category": "ラーメン部門" },
         "hours": {
           "mon": null,
-          "tue": [{"open": "11:00", "close": "24:45"}],
-          "wed": [{"open": "11:00", "close": "24:45"}],
-          "thu": [{"open": "11:00", "close": "24:45"}],
-          "fri": [{"open": "11:00", "close": "24:45"}],
-          "sat": [{"open": "11:00", "close": "24:45"}],
-          "sun": [{"open": "11:00", "close": "24:00"}]
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "24:45"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "24:45"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "24:45"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "24:45"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "24:45"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -636,27 +1798,74 @@
         "googleMapsUrl": "https://maps.google.com/?q=王道家直系 IEKEI TOKYO 東京都千代田区外神田5-2-7",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": {
+          "year": 2021,
+          "category": "ラーメン部門"
+        },
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.666, 35.704] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.666,
+          35.704
+        ]
+      },
       "properties": {
         "id": "shop-023",
         "name": "武蔵家 中野本店",
         "address": "東京都中野区中野3-34-32",
-        "genre": ["家系"],
+        "genre": [
+          "家系"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "26:00"}],
-          "tue": [{"open": "11:00", "close": "26:00"}],
-          "wed": [{"open": "11:00", "close": "26:00"}],
-          "thu": [{"open": "11:00", "close": "26:00"}],
-          "fri": [{"open": "11:00", "close": "26:00"}],
-          "sat": [{"open": "11:00", "close": "26:00"}],
-          "sun": [{"open": "11:00", "close": "26:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "26:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "26:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "26:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "26:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "26:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "26:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "26:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -665,27 +1874,71 @@
         "googleMapsUrl": "https://maps.google.com/?q=武蔵家 中野本店 東京都中野区中野3-34-32",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.743, 35.607] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.743,
+          35.607
+        ]
+      },
       "properties": {
         "id": "shop-024",
         "name": "まこと家",
         "address": "東京都品川区南品川3-1-10",
-        "genre": ["家系"],
+        "genre": [
+          "家系"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "06:00", "close": "29:00"}],
-          "tue": [{"open": "06:00", "close": "29:00"}],
-          "wed": [{"open": "06:00", "close": "29:00"}],
-          "thu": [{"open": "06:00", "close": "29:00"}],
-          "fri": [{"open": "06:00", "close": "29:00"}],
-          "sat": [{"open": "06:00", "close": "29:00"}],
-          "sun": [{"open": "06:00", "close": "29:00"}]
+          "mon": [
+            {
+              "open": "06:00",
+              "close": "29:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "06:00",
+              "close": "29:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "06:00",
+              "close": "29:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "06:00",
+              "close": "29:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "06:00",
+              "close": "29:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "06:00",
+              "close": "29:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "06:00",
+              "close": "29:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -694,26 +1947,60 @@
         "googleMapsUrl": "https://maps.google.com/?q=まこと家 東京都品川区南品川3-1-10",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.691, 35.771] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.691,
+          35.771
+        ]
+      },
       "properties": {
         "id": "shop-025",
         "name": "中華ソバ 伊吹",
         "address": "東京都板橋区前野町4-58-10",
-        "genre": ["煮干し"],
+        "genre": [
+          "煮干し"
+        ],
         "rating": "超超うまい",
-        "sry": { "year": 2021, "category": "ラーメン部門" },
         "hours": {
-          "mon": [{"open": "11:45", "close": "15:00"}],
-          "tue": [{"open": "11:45", "close": "15:00"}],
+          "mon": [
+            {
+              "open": "11:45",
+              "close": "15:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:45",
+              "close": "15:00"
+            }
+          ],
           "wed": null,
-          "thu": [{"open": "11:45", "close": "15:00"}],
-          "fri": [{"open": "11:45", "close": "15:00"}],
-          "sat": [{"open": "11:45", "close": "15:00"}],
+          "thu": [
+            {
+              "open": "11:45",
+              "close": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:45",
+              "close": "15:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:45",
+              "close": "15:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -723,26 +2010,88 @@
         "googleMapsUrl": "https://maps.google.com/?q=中華ソバ 伊吹 東京都板橋区前野町4-58-10",
         "cashless": false,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": {
+          "year": 2021,
+          "category": "ラーメン部門"
+        },
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.782, 35.719] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.782,
+          35.719
+        ]
+      },
       "properties": {
         "id": "shop-026",
         "name": "麺処 晴",
         "address": "東京都台東区下谷1-11-7",
-        "genre": ["煮干し"],
+        "genre": [
+          "煮干し"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:00", "close": "17:00"}],
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "17:00"
+            }
+          ],
           "sun": null
         },
         "entryMethod": "並び順",
@@ -752,27 +2101,91 @@
         "googleMapsUrl": "https://maps.google.com/?q=麺処 晴 東京都台東区下谷1-11-7",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.761, 35.671] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.761,
+          35.671
+        ]
+      },
       "properties": {
         "id": "shop-027",
         "name": "銀座 篝 本店",
         "address": "東京都中央区銀座6-4-12",
-        "genre": ["鶏白湯"],
+        "genre": [
+          "鶏白湯"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:30"}, {"open": "17:30", "close": "22:00"}],
-          "tue": [{"open": "11:00", "close": "15:30"}, {"open": "17:30", "close": "22:00"}],
-          "wed": [{"open": "11:00", "close": "15:30"}, {"open": "17:30", "close": "22:00"}],
-          "thu": [{"open": "11:00", "close": "15:30"}, {"open": "17:30", "close": "22:00"}],
-          "fri": [{"open": "11:00", "close": "15:30"}, {"open": "17:30", "close": "22:00"}],
-          "sat": [{"open": "11:00", "close": "22:00"}],
-          "sun": [{"open": "11:00", "close": "22:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:30"
+            },
+            {
+              "open": "17:30",
+              "close": "22:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:30"
+            },
+            {
+              "open": "17:30",
+              "close": "22:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:30"
+            },
+            {
+              "open": "17:30",
+              "close": "22:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:30"
+            },
+            {
+              "open": "17:30",
+              "close": "22:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:30"
+            },
+            {
+              "open": "17:30",
+              "close": "22:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "22:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "22:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -781,27 +2194,93 @@
         "googleMapsUrl": "https://maps.google.com/?q=銀座 篝 本店 東京都中央区銀座6-4-12",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.859, 35.717] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.859,
+          35.717
+        ]
+      },
       "properties": {
         "id": "shop-028",
         "name": "麺屋 一燈",
         "address": "東京都葛飾区東新小岩1-4-17",
-        "genre": ["鶏白湯", "煮干し"],
+        "genre": [
+          "鶏白湯",
+          "煮干し",
+          "油そば・まぜそば"
+        ],
         "rating": "ちょめめ",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:00", "close": "21:00"}],
-          "sun": [{"open": "11:00", "close": "21:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "21:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "21:00"
+            }
+          ]
         },
         "entryMethod": "予約制",
         "ticketBuy": "先買い",
@@ -810,27 +2289,73 @@
         "googleMapsUrl": "https://maps.google.com/?q=麺屋 一燈 東京都葛飾区東新小岩1-4-17",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.771, 35.693] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.771,
+          35.693
+        ]
+      },
       "properties": {
         "id": "shop-029",
         "name": "カラシビ味噌らー麺 鬼金棒",
         "address": "東京都千代田区鍛冶町2-10-9",
-        "genre": ["辛い系", "味噌"],
+        "genre": [
+          "辛い系",
+          "味噌",
+          "つけ麺"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "21:30"}],
-          "tue": [{"open": "11:00", "close": "21:30"}],
-          "wed": [{"open": "11:00", "close": "21:30"}],
-          "thu": [{"open": "11:00", "close": "21:30"}],
-          "fri": [{"open": "11:00", "close": "21:30"}],
-          "sat": [{"open": "11:00", "close": "21:30"}],
-          "sun": [{"open": "11:00", "close": "16:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "21:30"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "21:30"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "21:30"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "21:30"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "21:30"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "21:30"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -839,27 +2364,71 @@
         "googleMapsUrl": "https://maps.google.com/?q=カラシビ味噌らー麺 鬼金棒 東京都千代田区鍛冶町2-10-9",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.680, 35.759] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.68,
+          35.759
+        ]
+      },
       "properties": {
         "id": "shop-030",
         "name": "蒙古タンメン中本 上板橋本店",
         "address": "東京都板橋区常盤台4-33-3",
-        "genre": ["辛い系"],
+        "genre": [
+          "辛い系"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "24:00"}],
-          "tue": [{"open": "11:00", "close": "24:00"}],
-          "wed": [{"open": "11:00", "close": "24:00"}],
-          "thu": [{"open": "11:00", "close": "24:00"}],
-          "fri": [{"open": "11:00", "close": "24:00"}],
-          "sat": [{"open": "11:00", "close": "24:00"}],
-          "sun": [{"open": "11:00", "close": "24:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "24:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -868,27 +2437,72 @@
         "googleMapsUrl": "https://maps.google.com/?q=蒙古タンメン中本 上板橋本店 東京都板橋区常盤台4-33-3",
         "cashless": true,
         "parking": true,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.711, 35.678] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.711,
+          35.678
+        ]
+      },
       "properties": {
         "id": "shop-031",
         "name": "ホープ軒 千駄ヶ谷本店",
         "address": "東京都渋谷区千駄ヶ谷2-33-9",
-        "genre": ["豚骨", "醤油"],
+        "genre": [
+          "豚骨",
+          "醤油"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "00:00", "close": "24:00"}],
-          "tue": [{"open": "00:00", "close": "24:00"}],
-          "wed": [{"open": "00:00", "close": "24:00"}],
-          "thu": [{"open": "00:00", "close": "24:00"}],
-          "fri": [{"open": "00:00", "close": "24:00"}],
-          "sat": [{"open": "00:00", "close": "24:00"}],
-          "sun": [{"open": "00:00", "close": "24:00"}]
+          "mon": [
+            {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -897,27 +2511,71 @@
         "googleMapsUrl": "https://maps.google.com/?q=ホープ軒 千駄ヶ谷本店 東京都渋谷区千駄ヶ谷2-33-9",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.713, 35.727] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.713,
+          35.727
+        ]
+      },
       "properties": {
         "id": "shop-032",
         "name": "屯ちん 池袋本店",
         "address": "東京都豊島区南池袋2-26-2",
-        "genre": ["豚骨"],
+        "genre": [
+          "豚骨"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "28:00"}],
-          "tue": [{"open": "11:00", "close": "28:00"}],
-          "wed": [{"open": "11:00", "close": "28:00"}],
-          "thu": [{"open": "11:00", "close": "28:00"}],
-          "fri": [{"open": "11:00", "close": "28:00"}],
-          "sat": [{"open": "11:00", "close": "28:00"}],
-          "sun": [{"open": "11:00", "close": "28:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "28:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "28:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "28:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "28:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "28:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "28:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "28:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -926,27 +2584,71 @@
         "googleMapsUrl": "https://maps.google.com/?q=屯ちん 池袋本店 東京都豊島区南池袋2-26-2",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.698, 35.694] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.698,
+          35.694
+        ]
+      },
       "properties": {
         "id": "shop-033",
         "name": "麺屋 武蔵 新宿本店",
         "address": "東京都新宿区西新宿7-2-6",
-        "genre": ["醤油"],
+        "genre": [
+          "醤油"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "22:30"}],
-          "tue": [{"open": "11:00", "close": "22:30"}],
-          "wed": [{"open": "11:00", "close": "22:30"}],
-          "thu": [{"open": "11:00", "close": "22:30"}],
-          "fri": [{"open": "11:00", "close": "22:30"}],
-          "sat": [{"open": "11:00", "close": "22:30"}],
-          "sun": [{"open": "11:00", "close": "22:30"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "22:30"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "22:30"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "22:30"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "22:30"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "22:30"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "22:30"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "22:30"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -955,27 +2657,91 @@
         "googleMapsUrl": "https://maps.google.com/?q=麺屋 武蔵 新宿本店 東京都新宿区西新宿7-2-6",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.666, 35.708] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.666,
+          35.708
+        ]
+      },
       "properties": {
         "id": "shop-034",
         "name": "担々麺 ほおずき",
         "address": "東京都中野区中野5-52-1",
-        "genre": ["辛い系"],
+        "genre": [
+          "辛い系"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:30", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "tue": [{"open": "11:30", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "wed": [{"open": "11:30", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "thu": [{"open": "11:30", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "fri": [{"open": "11:30", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "sat": [{"open": "11:30", "close": "23:00"}],
-          "sun": [{"open": "11:30", "close": "22:00"}]
+          "mon": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:30",
+              "close": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:30",
+              "close": "22:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -984,27 +2750,66 @@
         "googleMapsUrl": "https://maps.google.com/?q=担々麺 ほおずき 東京都中野区中野5-52-1",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.624, 35.723] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.624,
+          35.723
+        ]
+      },
       "properties": {
         "id": "shop-035",
         "name": "豚骨らーめん 御天",
         "address": "東京都杉並区井草1-29-3",
-        "genre": ["豚骨"],
+        "genre": [
+          "豚骨"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "18:00", "close": "25:00"}],
+          "mon": [
+            {
+              "open": "18:00",
+              "close": "25:00"
+            }
+          ],
           "tue": null,
-          "wed": [{"open": "18:00", "close": "25:00"}],
-          "thu": [{"open": "18:00", "close": "25:00"}],
-          "fri": [{"open": "18:00", "close": "25:00"}],
-          "sat": [{"open": "18:00", "close": "25:00"}],
-          "sun": [{"open": "18:00", "close": "25:00"}]
+          "wed": [
+            {
+              "open": "18:00",
+              "close": "25:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "18:00",
+              "close": "25:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "18:00",
+              "close": "25:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "18:00",
+              "close": "25:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "18:00",
+              "close": "25:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "後買い",
@@ -1013,27 +2818,72 @@
         "googleMapsUrl": "https://maps.google.com/?q=豚骨らーめん 御天 東京都杉並区井草1-29-3",
         "cashless": false,
         "parking": true,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.705, 35.711] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.705,
+          35.711
+        ]
+      },
       "properties": {
         "id": "shop-036",
         "name": "鶏白湯らーめん 陰山",
         "address": "東京都新宿区高田馬場1-4-18",
-        "genre": ["鶏白湯"],
+        "genre": [
+          "鶏白湯",
+          "つけ麺"
+        ],
         "rating": "うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "23:00"}],
-          "tue": [{"open": "11:00", "close": "23:00"}],
-          "wed": [{"open": "11:00", "close": "23:00"}],
-          "thu": [{"open": "11:00", "close": "23:00"}],
-          "fri": [{"open": "11:00", "close": "23:00"}],
-          "sat": [{"open": "11:00", "close": "23:00"}],
-          "sun": [{"open": "11:00", "close": "23:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -1042,27 +2892,92 @@
         "googleMapsUrl": "https://maps.google.com/?q=鶏白湯らーめん 陰山 東京都新宿区高田馬場1-4-18",
         "cashless": true,
         "parking": false,
-        "tableSeating": true
+        "tableSeating": true,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.721, 35.778] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.721,
+          35.778
+        ]
+      },
       "properties": {
         "id": "shop-037",
         "name": "自家製麺 伊藤",
         "address": "東京都北区赤羽1-2-4",
-        "genre": ["煮干し"],
+        "genre": [
+          "煮干し",
+          "油そば・まぜそば"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "23:00"}],
-          "tue": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "23:00"}],
-          "wed": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "23:00"}],
-          "thu": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "23:00"}],
-          "fri": [{"open": "11:00", "close": "16:00"}, {"open": "17:00", "close": "23:00"}],
-          "sat": [{"open": "11:00", "close": "23:00"}],
-          "sun": [{"open": "11:00", "close": "21:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "16:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "21:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -1071,27 +2986,91 @@
         "googleMapsUrl": "https://maps.google.com/?q=自家製麺 伊藤 東京都北区赤羽1-2-4",
         "cashless": true,
         "parking": false,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.333, 35.658] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.333,
+          35.658
+        ]
+      },
       "properties": {
         "id": "shop-038",
         "name": "煮干鰮らーめん 圓",
         "address": "東京都八王子市横山町21-21",
-        "genre": ["煮干し"],
+        "genre": [
+          "煮干し"
+        ],
         "rating": "超超うまい",
-        "sry": null,
         "hours": {
-          "mon": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "tue": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "wed": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "thu": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "fri": [{"open": "11:00", "close": "15:00"}, {"open": "17:00", "close": "23:00"}],
-          "sat": [{"open": "11:00", "close": "23:00"}],
-          "sun": [{"open": "11:00", "close": "23:00"}]
+          "mon": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "tue": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:00",
+              "close": "15:00"
+            },
+            {
+              "open": "17:00",
+              "close": "23:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:00",
+              "close": "23:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -1100,27 +3079,75 @@
         "googleMapsUrl": "https://maps.google.com/?q=煮干鰮らーめん 圓 東京都八王子市横山町21-21",
         "cashless": true,
         "parking": true,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [139.541, 35.551] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.541,
+          35.551
+        ]
+      },
       "properties": {
         "id": "shop-039",
         "name": "麺処 秋もと",
         "address": "神奈川県横浜市青葉区市ケ尾町1157-1",
-        "genre": ["醤油", "塩"],
+        "genre": [
+          "醤油",
+          "塩"
+        ],
         "rating": "超うまい",
-        "sry": null,
         "hours": {
           "mon": null,
-          "tue": [{"open": "11:30", "close": "15:00"}],
-          "wed": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "thu": [{"open": "11:30", "close": "15:00"}],
-          "fri": [{"open": "11:30", "close": "15:00"}, {"open": "18:00", "close": "21:00"}],
-          "sat": [{"open": "11:30", "close": "15:00"}],
-          "sun": [{"open": "11:30", "close": "15:00"}]
+          "tue": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            }
+          ],
+          "wed": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "thu": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            }
+          ],
+          "fri": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            },
+            {
+              "open": "18:00",
+              "close": "21:00"
+            }
+          ],
+          "sat": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            }
+          ],
+          "sun": [
+            {
+              "open": "11:30",
+              "close": "15:00"
+            }
+          ]
         },
         "entryMethod": "並び順",
         "ticketBuy": "先買い",
@@ -1129,7 +3156,9 @@
         "googleMapsUrl": "https://maps.google.com/?q=麺処 秋もと 神奈川県横浜市青葉区市ケ尾町1157-1",
         "cashless": false,
         "parking": true,
-        "tableSeating": false
+        "tableSeating": false,
+        "try": null,
+        "nonsmoking": true
       }
     }
   ]

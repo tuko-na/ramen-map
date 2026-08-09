@@ -10,7 +10,7 @@ import { isVisited } from './favorites.js';
 const state = {
   openOnly: false,
   unvisitedOnly: false,
-  sryOnly: false,
+  tryOnly: false,
   ratings: new Set(),
   genres: new Set(),
   entries: new Set(),
@@ -41,11 +41,14 @@ export function initFilters(onChange) {
     fireChange();
   });
 
-  document.getElementById('filter-sry').addEventListener('click', function () {
-    state.sryOnly = !state.sryOnly;
-    this.classList.toggle('active', state.sryOnly);
-    fireChange();
-  });
+  const tryBtn = document.getElementById('filter-try') || document.getElementById('filter-sry');
+  if (tryBtn) {
+    tryBtn.addEventListener('click', function () {
+      state.tryOnly = !state.tryOnly;
+      this.classList.toggle('active', state.tryOnly);
+      fireChange();
+    });
+  }
 
   // フィルターモーダル開閉
   const modal = document.getElementById('filter-modal');
@@ -116,8 +119,9 @@ export function applyFilters(geojson, filterState = state) {
 
     if (filterState.unvisitedOnly && isVisited(props.id)) return false;
 
-    if (filterState.sryOnly) {
-      if (!props.sry || props.sry === 'null') return false;
+    if (filterState.tryOnly) {
+      const hasTry = (props.try && props.try !== 'null') || (props.sry && props.sry !== 'null');
+      if (!hasTry) return false;
     }
 
     if (filterState.ratings.size > 0) {
@@ -159,7 +163,7 @@ export function applyFilters(geojson, filterState = state) {
 export function resetFilters() {
   state.openOnly = false;
   state.unvisitedOnly = false;
-  state.sryOnly = false;
+  state.tryOnly = false;
   state.ratings.clear();
   state.genres.clear();
   state.entries.clear();

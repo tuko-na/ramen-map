@@ -56,7 +56,7 @@
         <div id="filter-bar">
           <button class="chip" data-filter="open" id="filter-open">営業中</button>
           <button class="chip" data-filter="unvisited" id="filter-unvisited">未訪問</button>
-          <button class="chip" data-filter="sry" id="filter-sry">SRY</button>
+          <button class="chip" data-filter="try" id="filter-try">TRY</button>
           <button class="chip" id="filter-toggle">
             フィルター <i class="ti ti-chevron-down" style="font-size:10px; vertical-align:-1px;"></i>
           </button>
@@ -75,7 +75,7 @@
               <button id="sheet-close" aria-label="閉じる"><i class="ti ti-x"></i></button>
             </div>
             <div id="sheet-badges"></div>
-            <div id="sheet-sry"></div>
+            <div id="sheet-try"></div>
           </div>
 
           <div id="sheet-status-row"></div>
@@ -162,16 +162,20 @@
           <button class="chip genre" data-filter="genre" data-value="煮干し">煮干し</button>
           <button class="chip genre" data-filter="genre" data-value="鶏白湯">鶏白湯</button>
           <button class="chip genre" data-filter="genre" data-value="辛い系">辛い系</button>
+          <button class="chip genre" data-filter="genre" data-value="つけ麺">つけ麺</button>
+          <button class="chip genre" data-filter="genre" data-value="油そば・まぜそば">油そば・まぜそば</button>
         </div>
       </div>
       <div class="filter-section">
         <p class="filter-label">入店・食券</p>
         <div class="filter-chips">
+          <button class="chip entry" data-filter="entry" data-value="並び順">並び順</button>
           <button class="chip entry" data-filter="entry" data-value="記帳制">記帳制</button>
           <button class="chip entry" data-filter="entry" data-value="整理券制">整理券制</button>
-          <button class="chip entry" data-filter="entry" data-value="並び順">並び順</button>
+          <button class="chip entry" data-filter="entry" data-value="予約制">予約制</button>
           <button class="chip ticket" data-filter="ticket" data-value="先買い">食券先買い</button>
           <button class="chip ticket" data-filter="ticket" data-value="後買い">食券後買い</button>
+          <button class="chip ticket" data-filter="ticket" data-value="なし">食券なし</button>
         </div>
       </div>
       <div class="filter-section">
@@ -180,6 +184,7 @@
           <button class="chip facility" data-filter="facility" data-value="cashless">電子マネー対応</button>
           <button class="chip facility" data-filter="facility" data-value="parking">駐車場あり</button>
           <button class="chip facility" data-filter="facility" data-value="tableSeating">テーブル席あり</button>
+          <button class="chip facility" data-filter="facility" data-value="nonsmoking">全席禁煙</button>
         </div>
       </div>
       <div class="modal-actions">

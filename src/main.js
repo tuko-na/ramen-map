@@ -66,6 +66,12 @@ async function init() {
     });
 
     map.on('load', () => {
+      // フラット配列の導出 (必要に応じて各モジュールで直接アクセス可能)
+      const shopsFlat = enrichedData.features.map(f => ({
+        ...f.properties,
+        coordinates: f.geometry.coordinates,
+      }));
+
       updateMapData(enrichedData);
       updateShopCount();
 
@@ -139,7 +145,7 @@ function refreshOpenStatus() {
   if (!allShopData) return;
   enrichedData = enrichWithOpenStatus(allShopData);
   handleFilterChange({
-    openOnly: false, unvisitedOnly: false, sryOnly: false,
+    openOnly: false, unvisitedOnly: false, tryOnly: false,
     ratings: new Set(), genres: new Set(),
     entries: new Set(), tickets: new Set(), facilities: new Set(),
   });
