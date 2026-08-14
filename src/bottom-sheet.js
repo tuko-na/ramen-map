@@ -41,12 +41,14 @@ export function initBottomSheet() {
   document.getElementById('sheet-close').addEventListener('click', closeSheet);
 
   // スワイプダウンで閉じる
-  let startY = 0;
   const handle = document.getElementById('sheet-handle');
-  handle.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
-  handle.addEventListener('touchend', (e) => {
-    if (e.changedTouches[0].clientY - startY > 50) closeSheet();
-  }, { passive: true });
+  if (handle) {
+    let startY = 0;
+    handle.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+    handle.addEventListener('touchend', (e) => {
+      if (e.changedTouches[0].clientY - startY > 50) closeSheet();
+    });
+  }
 
   favoriteBtn.addEventListener('click', () => {
     if (!currentShop) return;
