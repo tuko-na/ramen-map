@@ -12,13 +12,13 @@
  */
 
 import { GoogleGenAI } from '@google/genai';
-import { parseSafeJson, withRetry } from './utils.js';
+import { parseSafeJson, withRetry, geminiThrottle } from './utils.js';
 
 /**
  * Gemini 抽出スキーマ確定版
  * GEMINI.md セクション「参考：Gemini抽出スキーマ確定版」に準拠
  */
-const EXTRACTION_SCHEMA = {
+export const EXTRACTION_SCHEMA = {
   type: 'object',
   properties: {
     isRamenPost: { type: 'boolean' },
@@ -84,6 +84,7 @@ export async function parseCaption(post) {
 
   const prompt = buildPrompt(post);
 
+  await geminiThrottle();
   const response = await withRetry(() => ai.models.generateContent({
     model: 'gemini-3.7-flash',
     contents: prompt,
@@ -96,7 +97,7 @@ export async function parseCaption(post) {
   const text = response.text;
   const result = parseSafeJson(text);
 
-  console.log(`[parser] 抽出完了: isRamen=${result.isRamenPost}, name="${result.name}", rating="${result.rating}"`);
+  console.log(`[parser] 抽出完了: isRamen=${result.isRamenPost}, name="${result.name}", rating=${result.rating}`);
 
   return result;
 }
@@ -115,7 +116,7 @@ function buildPrompt(post) {
     '- グッズ告知・イベント告知・コラボ告知など、ラーメン店舗の訪問レポートではない投稿の場合、isRamenPost を false にしてください。',
     '- 味の評価は「ちょめめ」「超超うまい」「超うまい」「うまい」の4段階のみです。これ以外の表現は null にしてください。',
     '- area_hint はキャプション本文・ハッシュタグ・位置タグから推測できる地域名（市区町村レベル）を入れてください。',
-    '- genre は複数選択可能です。該当するものをすべて配列に入れてください。',
+    '- genre は複数選択可能です。以下のリストから該当するものをすべて配列に入れてください: 醤油, 塩, 味噌, 豚骨, 二郎系, 家系, 煮干し, 鶏白湯, 辛い系, つけ麺, 油そば・まぜそば',
     '- TRYラーメン大賞に関する言及があれば try オブジェクトに年度とカテゴリを入れてください。',
     '- 判明しない項目は null にしてください（推測で埋めないでください）。',
     '',

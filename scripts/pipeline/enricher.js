@@ -11,7 +11,8 @@
  */
 
 import { GoogleGenAI } from '@google/genai';
-import { parseSafeJson, withRetry } from './utils.js';
+import { parseSafeJson, withRetry, geminiThrottle } from './utils.js';
+import { EXTRACTION_SCHEMA } from './parser.js';
 
 /** 補完対象のフィールド一覧 (rating, name, isRamenPost, area_hint は対象外) */
 const ENRICHABLE_FIELDS = [
@@ -55,16 +56,46 @@ export async function enrichNullFields(extracted, shopName, address) {
   const prompt = buildEnrichPrompt(shopName, address, nullFields);
 
   try {
-    const response = await withRetry(() => ai.models.generateContent({
+    // ── Step 1: Grounding で自然言語の情報を取得 ──
+    // responseMimeType: 'application/json' と tools: [{ googleSearch: {} }] は併用不可のため、
+    // まず Grounding のみで自然言語レスポンスを取得する
+    await geminiThrottle();
+    const groundingResponse = await withRetry(() => ai.models.generateContent({
       model: 'gemini-3.7-flash',
       contents: prompt,
       config: {
-        responseMimeType: 'application/json',
         tools: [{ googleSearch: {} }],
       },
     }));
 
-    const text = response.text;
+    const groundingText = groundingResponse.text;
+    console.log(`[enricher] Grounding 検索完了（${groundingText.length}文字）`);
+
+    // ── Step 2: Grounding 結果を JSON に構造化 ──
+    const structurePrompt = [
+      '以下の「情報テキスト」から、指定されたフィールドの値を JSON で抽出してください。',
+      '',
+      '## 厳守ルール',
+      '- 情報テキストに**明示的に記載されている事実のみ**を抽出してください。',
+      '- 情報テキストに**記載のない項目は必ず null** を返してください。',
+      '- あなたの一般知識や推測で値を補完することは**絶対に禁止**です。',
+      '- 「おそらく」「一般的に」等の推量に基づく回答も null としてください。',
+      '',
+      '--- 情報テキスト ---',
+      groundingText,
+    ].join('\n');
+
+    await geminiThrottle();
+    const structuredResponse = await withRetry(() => ai.models.generateContent({
+      model: 'gemini-3.7-flash',
+      contents: structurePrompt,
+      config: {
+        responseMimeType: 'application/json',
+        responseSchema: EXTRACTION_SCHEMA,
+      },
+    }));
+
+    const text = structuredResponse.text;
     const enriched = parseSafeJson(text);
 
     // 差分マージ: 一次情報は絶対に上書きしない
