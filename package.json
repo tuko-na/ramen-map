@@ -6,12 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pipeline": "node scripts/pipeline/index.js",
+    "resolve-queue": "node scripts/pipeline/resolve-queue.js"
   },
   "devDependencies": {
     "vite": "^8.2.0"
   },
   "dependencies": {
+    "apify-client": "^2.11.0",
+    "@google/genai": "^1.0.0",
+    "dotenv": "^16.4.0",
     "fuse.js": "^7.5.0",
     "maplibre-gl": "^6.2.0"
   }
