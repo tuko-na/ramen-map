@@ -147,7 +147,7 @@ export function applyFilters(geojson, filterState = state) {
 
     if (filterState.facilities.size > 0) {
       for (const f of filterState.facilities) {
-        if (!props[f]) return false;
+        if (props[f] !== true) return false;
       }
     }
 

@@ -138,13 +138,25 @@ export function openSheet(feature) {
     <span class="status-hours">${hoursDisplay}</span>
   `;
 
-  // 入店・食券タグ
+  // 入店・食券・設備タグ
   entryTags.innerHTML = '';
   if (props.entryMethod) {
     entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-notebook"></i>${props.entryMethod}</span>`;
   }
   if (props.ticketBuy) {
     entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-ticket"></i>食券${props.ticketBuy}</span>`;
+  }
+  if (props.cashless === true) {
+    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-credit-card"></i>キャッシュレス</span>`;
+  }
+  if (props.parking === true) {
+    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-car"></i>駐車場あり</span>`;
+  }
+  if (props.tableSeating === true) {
+    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-users"></i>テーブル席</span>`;
+  }
+  if (props.nonsmoking === true) {
+    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-smoking-no"></i>全席禁煙</span>`;
   }
 
   // Instagram / YouTube リンク (SUSURU + 店名 検索)
