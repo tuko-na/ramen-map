@@ -209,13 +209,21 @@ function setupInteractions(onShopClick) {
 /**
  * マップデータを更新する
  * @param {Object} geojson - GeoJSON FeatureCollection
+ * @param {string|null} activeShopId - 現在選択中の店舗ID (将来のハイライト再適用用)
  */
-export function updateMapData(geojson) {
+export function updateMapData(geojson, activeShopId = null) {
   if (!map) return;
 
   const source = map.getSource('ramen-shops');
   if (source) {
     source.setData(geojson);
+    
+    // (将来用) feature-state を用いたハイライトを実装する場合、
+    // ここで activeShopId に該当する feature の state を true に再設定する。
+    // 例:
+    // if (activeShopId) {
+    //   map.setFeatureState({ source: 'ramen-shops', id: activeShopId }, { active: true });
+    // }
   }
 }
 

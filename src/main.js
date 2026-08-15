@@ -19,19 +19,16 @@ setWorkerUrl(maplibreWorkerUrl);
 
 // --- Modules ---
 import { initMap, updateMapData, flyToLocation, getVisibleShopCount } from './map.js';
-import { initFilters, applyFilters } from './filters.js';
-import { initBottomSheet, openSheet } from './bottom-sheet.js';
-import { initSearch } from './search.js';
+import { initFilters } from './filters.js';
+import { initBottomSheet, openSheet, closeSheet } from './bottom-sheet.js';
+import { initSearch, updateSearchIndex } from './search.js';
 import { initGeolocation } from './geolocation.js';
-import { enrichWithOpenStatus } from './opening-hours.js';
 
-/** @type {Object|null} */
-let allShopData = null;
-/** @type {Object|null} */
-let enrichedData = null;
+import { subscribe, setRawData, updateOpenStatus, setActiveShopId } from './store.js';
 
 const totalCountEl = document.getElementById('total-count');
 const visibleCountEl = document.getElementById('visible-count');
+let timerId = null;
 
 /** 凡例データ */
 const LEGEND_ITEMS = [
@@ -49,16 +46,12 @@ async function init() {
     // 1. データ読み込み
     const res = await fetch('/data/ramen-shops.json');
     if (!res.ok) throw new Error(`データ読み込みエラー: ${res.status}`);
-    allShopData = await res.json();
+    const geoJson = await res.json();
 
-    // 2. 営業ステータス付与
-    enrichedData = enrichWithOpenStatus(allShopData);
-    totalCountEl.textContent = enrichedData.features.length;
-
-    // 3. 凡例描画
+    // 2. 凡例描画
     renderLegend();
 
-    // 4. マップ初期化
+    // 3. マップ初期化
     const map = initMap(handleShopClick, handleMapMove);
 
     map.on('error', (e) => {
@@ -66,23 +59,45 @@ async function init() {
     });
 
     map.on('load', () => {
-      // フラット配列の導出 (必要に応じて各モジュールで直接アクセス可能)
-      const shopsFlat = enrichedData.features.map(f => ({
-        ...f.properties,
-        coordinates: f.geometry.coordinates,
-      }));
-
-      updateMapData(enrichedData);
-      updateShopCount();
-
-      initFilters(handleFilterChange);
-      initSearch(enrichedData.features, handleSearchSelect);
+      // 4. 各UIモジュールの初期化
+      initFilters();
+      initSearch(handleSearchSelect); // データの流し込みは後述のsubscribeで行う
       initBottomSheet();
       initGeolocation();
       initNavigation();
 
-      // 営業ステータス定期更新 (1分ごと)
-      setInterval(refreshOpenStatus, 60000);
+      // 5. Store の状態を購読 (Pub/Sub)
+      subscribe((state, derivedData) => {
+        // マップの更新
+        updateMapData(derivedData, state.activeShopId);
+        
+        // 検索インデックスの更新
+        updateSearchIndex(derivedData.features);
+        
+        // ヘッダーの合計件数更新
+        if (state.rawData) {
+           totalCountEl.textContent = state.rawData.features.length;
+        }
+
+        // 表示件数（画面内の店舗数）の更新遅延実行
+        setTimeout(updateShopCount, 100);
+
+        // ボトムシートの自動クローズ
+        if (!state.activeShopId) {
+           closeSheet();
+        }
+      });
+
+      // 6. データの初期セット (Storeに通知され、一斉に描画が走る)
+      setRawData(geoJson);
+
+      // 7. 営業ステータス定期更新 (1分ごと)
+      // setInterval のコールバック内では Store の Action (updateOpenStatus) を呼ぶのみ。
+      // 古い状態のクロージャは発生しない。
+      if (timerId) clearInterval(timerId);
+      timerId = setInterval(() => {
+        updateOpenStatus();
+      }, 60000);
     });
 
   } catch (err) {
@@ -116,20 +131,17 @@ function initNavigation() {
 }
 
 function handleShopClick(feature) {
+  setActiveShopId(feature.properties.id);
   openSheet(feature);
-}
-
-function handleFilterChange(filterState) {
-  if (!enrichedData) return;
-  const filtered = applyFilters(enrichedData, filterState);
-  updateMapData(filtered);
-  setTimeout(updateShopCount, 100);
 }
 
 function handleSearchSelect(feature) {
   const coords = feature.geometry.coordinates;
-  flyToLocation(coords, 16);
-  setTimeout(() => openSheet(feature), 500);
+  flyToLocation(coords, 16); // 検索は特定の店舗へ飛ぶための機能なので、flyToを呼ぶ
+  setTimeout(() => {
+    setActiveShopId(feature.properties.id);
+    openSheet(feature);
+  }, 500);
 }
 
 function handleMapMove() {
@@ -139,16 +151,6 @@ function handleMapMove() {
 function updateShopCount() {
   const count = getVisibleShopCount();
   visibleCountEl.textContent = count;
-}
-
-function refreshOpenStatus() {
-  if (!allShopData) return;
-  enrichedData = enrichWithOpenStatus(allShopData);
-  handleFilterChange({
-    openOnly: false, unvisitedOnly: false, tryOnly: false,
-    ratings: new Set(), genres: new Set(),
-    entries: new Set(), tickets: new Set(), facilities: new Set(),
-  });
 }
 
 function showInitError() {

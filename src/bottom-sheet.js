@@ -2,7 +2,7 @@
  * ボトムシート (店舗詳細カード) - UIデモ準拠
  */
 import { getOpenStatus } from './opening-hours.js';
-import { isFavorite, toggleFavorite, isVisited, toggleVisited } from './favorites.js';
+import { toggleFavorite as storeToggleFavorite, toggleVisited as storeToggleVisited, getState, setActiveShopId } from './store.js';
 
 const sheet = document.getElementById('bottom-sheet');
 const nameEl = document.getElementById('sheet-name');
@@ -14,9 +14,6 @@ const actionInstagram = document.getElementById('sheet-action-instagram');
 const actionYoutube = document.getElementById('sheet-action-youtube');
 const favoriteBtn = document.getElementById('sheet-favorite');
 const visitedBtn = document.getElementById('sheet-visited');
-
-/** @type {Object|null} */
-let currentShop = null;
 
 /** 評価色マッピング */
 const RATING_STYLES = {
@@ -38,7 +35,9 @@ const STATUS_STYLES = {
  * 初期化
  */
 export function initBottomSheet() {
-  document.getElementById('sheet-close').addEventListener('click', closeSheet);
+  document.getElementById('sheet-close').addEventListener('click', () => {
+    setActiveShopId(null);
+  });
 
   // スワイプダウンで閉じる
   const handle = document.getElementById('sheet-handle');
@@ -46,25 +45,31 @@ export function initBottomSheet() {
     let startY = 0;
     handle.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
     handle.addEventListener('touchend', (e) => {
-      if (e.changedTouches[0].clientY - startY > 50) closeSheet();
+      if (e.changedTouches[0].clientY - startY > 50) setActiveShopId(null);
     });
   }
 
   favoriteBtn.addEventListener('click', () => {
-    if (!currentShop) return;
-    toggleFavorite(currentShop.properties.id);
+    const id = getState().activeShopId;
+    if (!id) return;
+    storeToggleFavorite(id);
     updateFavoriteUI();
   });
 
   visitedBtn.addEventListener('click', () => {
-    if (!currentShop) return;
-    toggleVisited(currentShop.properties.id);
+    const id = getState().activeShopId;
+    if (!id) return;
+    storeToggleVisited(id);
     updateVisitedUI();
   });
 
   // 経路ボタン
   actionRoute.addEventListener('click', () => {
+    const state = getState();
+    if (!state.activeShopId || !state.rawData) return;
+    const currentShop = state.rawData.features.find(f => f.properties.id === state.activeShopId);
     if (!currentShop) return;
+    
     const [lng, lat] = currentShop.geometry.coordinates;
     const url = currentShop.properties.googleMapsUrl ||
       `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
@@ -73,10 +78,9 @@ export function initBottomSheet() {
 }
 
 /**
- * ボトムシートを開く
+ * ボトムシートを開く (UI反映)
  */
 export function openSheet(feature) {
-  currentShop = feature;
   const props = feature.properties;
 
   // 店名
@@ -122,7 +126,7 @@ export function openSheet(feature) {
     }
   }
 
-  // 営業ステータス
+  // 営業ステータス (Storeの enriched 状態に依存しているが、念のためここでもパース考慮)
   let hours = props.hours;
   if (typeof hours === 'string') {
     try { hours = JSON.parse(hours); } catch { hours = null; }
@@ -146,18 +150,12 @@ export function openSheet(feature) {
   if (props.ticketBuy) {
     entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-ticket"></i>食券${props.ticketBuy}</span>`;
   }
-  if (props.cashless === true) {
-    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-credit-card"></i>キャッシュレス</span>`;
-  }
-  if (props.parking === true) {
-    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-car"></i>駐車場あり</span>`;
-  }
-  if (props.tableSeating === true) {
-    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-users"></i>テーブル席</span>`;
-  }
-  if (props.nonsmoking === true) {
-    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ti-smoking-no"></i>全席禁煙</span>`;
-  }
+  
+  // null(またはundefined)は非表示、falseはバツ印
+  addFacilityTag(props.cashless, 'ti-credit-card', 'キャッシュレス');
+  addFacilityTag(props.parking, 'ti-car', '駐車場');
+  addFacilityTag(props.tableSeating, 'ti-users', 'テーブル席');
+  addFacilityTag(props.nonsmoking, 'ti-smoking-no', '全席禁煙');
 
   // Instagram / YouTube リンク (SUSURU + 店名 検索)
   const q = encodeURIComponent('SUSURU ' + props.name);
@@ -173,23 +171,32 @@ export function openSheet(feature) {
 }
 
 /**
+ * 設備タグをレンダリングする (true のみ表示)
+ */
+function addFacilityTag(value, iconClass, label) {
+  if (value === true) {
+    entryTags.innerHTML += `<span class="entry-tag"><i class="ti ${iconClass}"></i>${label}</span>`;
+  }
+}
+
+/**
  * ボトムシートを閉じる
  */
 export function closeSheet() {
   sheet.classList.remove('open');
-  currentShop = null;
 }
 
 function updateFavoriteUI() {
-  if (!currentShop) return;
-  favoriteBtn.classList.toggle('active', isFavorite(currentShop.properties.id));
+  const id = getState().activeShopId;
+  if (!id) return;
+  const isFav = getState().favorites.has(id);
+  favoriteBtn.classList.toggle('active', isFav);
 }
 
 function updateVisitedUI() {
-  if (!currentShop) return;
-  visitedBtn.classList.toggle('active', isVisited(currentShop.properties.id));
+  const id = getState().activeShopId;
+  if (!id) return;
+  const isVis = getState().visited.has(id);
+  visitedBtn.classList.toggle('active', isVis);
 }
 
-export function getCurrentShop() {
-  return currentShop;
-}

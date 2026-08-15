@@ -1,52 +1,34 @@
 /**
- * フィルタリングロジック
- * クイックフィルター + フィルターモーダルの管理
+ * フィルタリングUIロジック
  */
-import { isVisited } from './favorites.js';
+import { setFilters, getState } from './store.js';
 
-/**
- * フィルター状態
- */
-const state = {
-  openOnly: false,
-  unvisitedOnly: false,
-  tryOnly: false,
-  ratings: new Set(),
-  genres: new Set(),
-  entries: new Set(),
-  tickets: new Set(),
-  facilities: new Set(),
-};
-
-/** @type {Function|null} */
-let onChangeCallback = null;
+let localFilters = null;
 
 /**
  * フィルターUIの初期化
- * @param {Function} onChange - フィルター変更時のコールバック
  */
-export function initFilters(onChange) {
-  onChangeCallback = onChange;
+export function initFilters() {
+  const state = getState().filters;
 
-  // クイックフィルター
-  document.getElementById('filter-open').addEventListener('click', function () {
-    state.openOnly = !state.openOnly;
-    this.classList.toggle('active', state.openOnly);
-    fireChange();
-  });
+  // クイックフィルター (即座反映)
+  setupQuickFilter('filter-open', 'openOnly');
+  setupQuickFilter('filter-unvisited', 'unvisitedOnly');
+  setupQuickFilter('filter-try', 'tryOnly');
+  setupQuickFilter('filter-sry', 'tryOnly'); // 古いID互換用
 
-  document.getElementById('filter-unvisited').addEventListener('click', function () {
-    state.unvisitedOnly = !state.unvisitedOnly;
-    this.classList.toggle('active', state.unvisitedOnly);
-    fireChange();
-  });
+  function setupQuickFilter(id, stateKey) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    
+    // 初期状態の反映
+    if (state[stateKey]) el.classList.add('active');
 
-  const tryBtn = document.getElementById('filter-try') || document.getElementById('filter-sry');
-  if (tryBtn) {
-    tryBtn.addEventListener('click', function () {
-      state.tryOnly = !state.tryOnly;
-      this.classList.toggle('active', state.tryOnly);
-      fireChange();
+    el.addEventListener('click', function () {
+      const currentState = getState().filters[stateKey];
+      // 既存のStore状態をマージして更新
+      setFilters({ ...getState().filters, [stateKey]: !currentState });
+      this.classList.toggle('active', !currentState);
     });
   }
 
@@ -55,6 +37,18 @@ export function initFilters(onChange) {
   const backdrop = document.getElementById('modal-backdrop');
 
   document.getElementById('filter-toggle').addEventListener('click', () => {
+    // モーダルを開く際に、現在の Store 状態をローカルにコピーする
+    const currentStoreFilters = getState().filters;
+    localFilters = {
+      ratings: new Set(currentStoreFilters.ratings),
+      genres: new Set(currentStoreFilters.genres),
+      entries: new Set(currentStoreFilters.entries),
+      tickets: new Set(currentStoreFilters.tickets),
+      facilities: new Set(currentStoreFilters.facilities),
+    };
+    
+    syncModalUIWithLocalFilters();
+    
     modal.classList.add('open');
     backdrop.classList.add('open');
   });
@@ -63,13 +57,34 @@ export function initFilters(onChange) {
   backdrop.addEventListener('click', closeModal);
 
   document.getElementById('filter-apply').addEventListener('click', () => {
+    // 適用ボタンを押した時に Store へ一括反映
+    setFilters({ ...getState().filters, ...localFilters });
     closeModal();
-    fireChange();
   });
 
   document.getElementById('filter-reset').addEventListener('click', () => {
-    resetFilters();
-    fireChange();
+    // モーダル内のローカルステートをクリアし、即座に適用して閉じる
+    const cleared = {
+      ratings: new Set(),
+      genres: new Set(),
+      entries: new Set(),
+      tickets: new Set(),
+      facilities: new Set(),
+    };
+    
+    // クイックフィルターのUI状態もリセットする（こちらは即座に外れる）
+    document.querySelectorAll('.quick-filter-btn.active').forEach(c => c.classList.remove('active'));
+    
+    // Store 全体のフィルターをリセット (クイックフィルター込みで全解除)
+    setFilters({
+      openOnly: false,
+      unvisitedOnly: false,
+      tryOnly: false,
+      ...cleared
+    });
+    
+    syncModalUIWithLocalFilters(cleared);
+    closeModal();
   });
 
   function closeModal() {
@@ -77,105 +92,61 @@ export function initFilters(onChange) {
     backdrop.classList.remove('open');
   }
 
-  // モーダル内チップトグル
-  setupChipGroup('.chip.rating', state.ratings, 'value');
-  setupChipGroup('.chip.genre', state.genres, 'value');
-  setupChipGroup('.chip.entry', state.entries, 'value');
-  setupChipGroup('.chip.ticket', state.tickets, 'value');
-  setupChipGroup('.chip.facility', state.facilities, 'value');
+  // モーダル内チップトグル (ローカルステートのみ更新)
+  setupChipGroup('.chip.rating', 'ratings');
+  setupChipGroup('.chip.genre', 'genres');
+  setupChipGroup('.chip.entry', 'entries');
+  setupChipGroup('.chip.ticket', 'tickets');
+  setupChipGroup('.chip.facility', 'facilities');
 }
 
 /**
- * チップグループのトグルを設定
+ * モーダル内のUIを localFilters に同期させる
  */
-function setupChipGroup(selector, set, dataAttr) {
+function syncModalUIWithLocalFilters(filtersToUse) {
+  const filters = filtersToUse || localFilters;
+  if (!filters) return;
+  
+  const groups = [
+    { selector: '.chip.rating', key: 'ratings' },
+    { selector: '.chip.genre', key: 'genres' },
+    { selector: '.chip.entry', key: 'entries' },
+    { selector: '.chip.ticket', key: 'tickets' },
+    { selector: '.chip.facility', key: 'facilities' },
+  ];
+  
+  groups.forEach(group => {
+    document.querySelectorAll(group.selector).forEach(btn => {
+      const val = btn.dataset.value;
+      if (val && filters[group.key].has(val)) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  });
+}
+
+/**
+ * チップグループのトグルを設定 (ローカルステートに対する操作)
+ */
+function setupChipGroup(selector, stateKey) {
   document.querySelectorAll(selector).forEach(btn => {
     btn.addEventListener('click', function () {
-      const val = this.dataset[dataAttr];
+      if (!localFilters) return;
+      const val = this.dataset.value;
       if (!val) return;
-      if (set.has(val)) {
-        set.delete(val);
+      
+      const newSet = localFilters[stateKey];
+      
+      if (newSet.has(val)) {
+        newSet.delete(val);
         this.classList.remove('active');
       } else {
-        set.add(val);
+        newSet.add(val);
         this.classList.add('active');
       }
     });
   });
 }
 
-function fireChange() {
-  if (onChangeCallback) onChangeCallback(state);
-}
-
-/**
- * GeoJSONをフィルター状態に基づいて絞り込む
- */
-export function applyFilters(geojson, filterState = state) {
-  const filtered = geojson.features.filter(feature => {
-    const props = feature.properties;
-
-    if (filterState.openOnly && !props.isOpenNow) return false;
-
-    if (filterState.unvisitedOnly && isVisited(props.id)) return false;
-
-    if (filterState.tryOnly) {
-      const hasTry = (props.try && props.try !== 'null') || (props.sry && props.sry !== 'null');
-      if (!hasTry) return false;
-    }
-
-    if (filterState.ratings.size > 0) {
-      if (!filterState.ratings.has(props.rating)) return false;
-    }
-
-    if (filterState.genres.size > 0) {
-      let genres = props.genre;
-      if (typeof genres === 'string') {
-        try { genres = JSON.parse(genres); } catch { genres = []; }
-      }
-      if (!Array.isArray(genres)) genres = [];
-      if (!genres.some(g => filterState.genres.has(g))) return false;
-    }
-
-    if (filterState.entries.size > 0) {
-      if (!filterState.entries.has(props.entryMethod)) return false;
-    }
-
-    if (filterState.tickets.size > 0) {
-      if (!filterState.tickets.has(props.ticketBuy)) return false;
-    }
-
-    if (filterState.facilities.size > 0) {
-      for (const f of filterState.facilities) {
-        if (props[f] !== true) return false;
-      }
-    }
-
-    return true;
-  });
-
-  return { type: 'FeatureCollection', features: filtered };
-}
-
-/**
- * フィルターをリセットする
- */
-export function resetFilters() {
-  state.openOnly = false;
-  state.unvisitedOnly = false;
-  state.tryOnly = false;
-  state.ratings.clear();
-  state.genres.clear();
-  state.entries.clear();
-  state.tickets.clear();
-  state.facilities.clear();
-
-  document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
-}
-
-/**
- * 現在のフィルター状態を取得
- */
-export function getFilterState() {
-  return { ...state };
-}
