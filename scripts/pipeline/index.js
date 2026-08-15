@@ -9,6 +9,9 @@
  *   4. rating 確定 AND 位置1件確定 → finalize.js で補完・営業時間・YouTube逆引き・Upsert
  *   5. rating null OR 位置複数/0件 → review-queue.json に退避（都度保存）
  *   6. 結果サマリーを出力して終了
+ *
+ * オプション:
+ *   --dry-run  本番の ramen-shops.json / review-queue.json を一切書き換えない検証モード
  */
 
 import 'dotenv/config';
@@ -21,11 +24,15 @@ import { loadQueue, saveQueue, getQueuePostIds } from './queue-store.js';
 import { finalizeShop } from './finalize.js';
 import { safeErrorMessage } from './utils.js';
 
+/** --dry-run フラグの検出 */
+const DRY_RUN = process.argv.includes('--dry-run');
+
 /**
  * パイプラインのメインエントリーポイント
  */
 async function runPipeline() {
   console.log('=== ラーメンマップ データ収集パイプライン開始 ===');
+  if (DRY_RUN) console.log('⚠️  DRY-RUN モード: 本番データへの書き込みを行いません');
   console.log(`実行日時: ${new Date().toISOString()}`);
 
   // 1. 既存データ読み込み
@@ -58,10 +65,13 @@ async function runPipeline() {
   let addedCount = 0;
   let queuedCount = 0;
   let skippedCount = 0;
+  const dryRunResults = []; // dry-run 時の結果蓄積用
 
-  for (const post of newPosts) {
+  for (let idx = 0; idx < newPosts.length; idx++) {
+    const post = newPosts[idx];
+
     console.log(`\n${'─'.repeat(60)}`);
-    console.log(`[pipeline] 処理中: ${post.postId}`);
+    console.log(`[pipeline] 処理中: ${post.postId} (${idx + 1}/${newPosts.length})`);
     console.log(`[pipeline] URL: ${post.postUrl}`);
 
     try {
@@ -84,9 +94,8 @@ async function runPipeline() {
       if (geoResult.isPendingLocation) reasons.push(geoResult.reason);
 
       if (reasons.length > 0) {
-        // review-queue.json に退避（都度保存：クラッシュ時のデータ消失を防ぐ）
         console.log(`[pipeline] 確認キューに退避: reasons=${reasons.join(', ')}`);
-        queue.push({
+        const queueEntry = {
           postId: post.postId,
           postUrl: post.postUrl,
           caption: post.caption,
@@ -94,15 +103,24 @@ async function runPipeline() {
           reasons,
           candidates: geoResult.candidates,
           createdAt: new Date().toISOString(),
-        });
-        saveQueue(queue);
+        };
+
+        if (DRY_RUN) {
+          console.log(`[pipeline][DRY-RUN] キュー退避 → 保存スキップ`);
+          dryRunResults.push({ type: 'queued', data: queueEntry });
+        } else {
+          queue.push(queueEntry);
+          saveQueue(queue);
+        }
         queuedCount++;
         continue;
       }
 
       // 4-5. 自動確定ルート (finalize.js への委譲)
-      // finalize.js 内で ramen-shops.json への保存も1件ごとに行われる
-      await finalizeShop(post, extracted, geoResult.place);
+      const result = await finalizeShop(post, extracted, geoResult.place, { dryRun: DRY_RUN });
+      if (DRY_RUN) {
+        dryRunResults.push({ type: 'finalized', data: result });
+      }
       addedCount++;
 
     } catch (err) {
@@ -112,13 +130,22 @@ async function runPipeline() {
 
   // 5. 結果サマリー
   console.log(`\n${'═'.repeat(60)}`);
-  console.log('=== パイプライン完了 ===');
+  console.log(`=== パイプライン完了${DRY_RUN ? ' (DRY-RUN)' : ''} ===`);
   console.log(`  追加/更新: ${addedCount} 件`);
   console.log(`  キュー退避: ${queuedCount} 件`);
   console.log(`  スキップ: ${skippedCount} 件`);
-  const finalGeojson = loadShopData();
-  console.log(`  総店舗数: ${finalGeojson.features.length} 件`);
-  console.log(`  未確定キュー: ${queue.length} 件`);
+
+  if (DRY_RUN) {
+    console.log(`\n[DRY-RUN] 本番データは変更されていません。`);
+    console.log(`[DRY-RUN] 処理結果 ${dryRunResults.length} 件:`);
+    for (const r of dryRunResults) {
+      console.log(`  [${r.type}] ${r.data.name || r.data.extracted?.name || r.data.postId}`);
+    }
+  } else {
+    const finalGeojson = loadShopData();
+    console.log(`  総店舗数: ${finalGeojson.features.length} 件`);
+    console.log(`  未確定キュー: ${queue.length} 件`);
+  }
 }
 
 // 実行

@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "pipeline": "node scripts/pipeline/index.js",
+    "pipeline:dry-run": "node scripts/pipeline/index.js --dry-run",
     "resolve-queue": "node scripts/pipeline/resolve-queue.js"
   },
   "devDependencies": {

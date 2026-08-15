@@ -14,9 +14,11 @@ import { withRetry } from './utils.js';
  * @param {Object} post - 元の投稿オブジェクト
  * @param {Object} extracted - Geminiから抽出された店舗データ
  * @param {Object} resolvedPlace - Places API から確定した位置情報 (placeId, lat, lng, name, address)
+ * @param {Object} [options]
+ * @param {boolean} [options.dryRun=false] - true の場合、ramen-shops.json を書き換えずに結果をコンソール出力のみ
  * @returns {Promise<Object>} 確定したFeatureオブジェクト
  */
-export async function finalizeShop(post, extracted, resolvedPlace) {
+export async function finalizeShop(post, extracted, resolvedPlace, { dryRun = false } = {}) {
   console.log(`[finalize] ${extracted.name} の確定フローを開始します`);
 
   // 1. null項目の補完
@@ -64,8 +66,13 @@ export async function finalizeShop(post, extracted, resolvedPlace) {
     youtubeUrl,
   };
 
-  const updatedGeojson = upsertShop(geojson, shopData);
-  saveShopData(updatedGeojson);
+  if (dryRun) {
+    console.log(`[finalize][DRY-RUN] ${extracted.name} → 保存スキップ`);
+    console.log(JSON.stringify(shopData, null, 2));
+  } else {
+    const updatedGeojson = upsertShop(geojson, shopData);
+    saveShopData(updatedGeojson);
+  }
   
   console.log(`[finalize] ${extracted.name} の確定フローが完了しました`);
   return shopData;

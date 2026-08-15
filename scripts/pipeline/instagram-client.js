@@ -37,7 +37,7 @@ export async function fetchLatestPosts({ maxPosts = 20 } = {}) {
   console.log(`[instagram-client] Apify でSUSURUの最新 ${maxPosts} 件を取得中...`);
 
   const run = await client.actor(ACTOR_ID).call({
-    directUrls: [`https://www.instagram.com/${SUSURU_USERNAME}/`],
+    username: [SUSURU_USERNAME],
     resultsLimit: maxPosts,
     resultsType: 'posts',
     addParentData: false,
