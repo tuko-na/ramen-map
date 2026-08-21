@@ -28,6 +28,13 @@ export const EXTRACTION_SCHEMA = {
       type: ['string', 'null'],
       enum: ['ちょめめ', '超超うまい', '超うまい', 'うまい', null],
     },
+    raw_rating_phrase: {
+      type: ['string', 'null'],
+    },
+    rating_inferred: {
+      type: ['string', 'null'],
+      enum: ['ちょめめ', '超超うまい', '超うまい', 'うまい', null],
+    },
     genre: {
       type: 'array',
       items: {
@@ -59,7 +66,7 @@ export const EXTRACTION_SCHEMA = {
     nonsmoking: { type: ['boolean', 'null'] },
   },
   required: [
-    'isRamenPost', 'name', 'area_hint', 'rating', 'genre', 'try',
+    'isRamenPost', 'name', 'area_hint', 'rating', 'raw_rating_phrase', 'rating_inferred', 'genre', 'try',
     'entryMethod', 'ticketBuy', 'cashless', 'parking', 'tableSeating', 'nonsmoking',
   ],
 };
@@ -114,7 +121,9 @@ function buildPrompt(post) {
     '',
     '## ルール',
     '- グッズ告知・イベント告知・コラボ告知など、ラーメン店舗の訪問レポートではない投稿の場合、isRamenPost を false にしてください。',
-    '- 味の評価は「ちょめめ」「超超うまい」「超うまい」「うまい」の4段階のみです。これ以外の表現は null にしてください。',
+    '- rating は基本的に null にしてください（後続の処理で埋めます）。',
+    '- raw_rating_phrase は、キャプション中の味の評価に相当する原文表現（例: "ウンメエ！"、"バチクソうまい"など）をそのまま抽出してください。評価らしき表現が無ければ null にしてください。',
+    '- rating_inferred は、まずハッシュタグを確認し、「ちょめめ」「超超うまい」「超うまい」「うまい」のいずれかがあれば、それを最優先で選んでください。ハッシュタグにない場合のみ、raw_rating_phrase から推測される公式ラベルを選んでください。推測不能なら null にしてください。',
     '- area_hint はキャプション本文・ハッシュタグ・位置タグから推測できる地域名（市区町村レベル）を入れてください。',
     '- genre は複数選択可能です。以下のリストから該当するものをすべて配列に入れてください: 醤油, 塩, 味噌, 豚骨, 二郎系, 家系, 煮干し, 鶏白湯, 辛い系, つけ麺, 油そば・まぜそば',
     '- TRYラーメン大賞に関する言及があれば try オブジェクトに年度とカテゴリを入れてください。',
@@ -145,6 +154,8 @@ function getMockExtraction(post) {
       name: '',
       area_hint: null,
       rating: null,
+      raw_rating_phrase: null,
+      rating_inferred: null,
       genre: [],
       try: null,
       entryMethod: null,
@@ -157,11 +168,12 @@ function getMockExtraction(post) {
   }
 
   // 簡易的な評価抽出
-  let rating = null;
-  if (caption.includes('ちょめめ')) rating = 'ちょめめ';
-  else if (caption.includes('超超うまい')) rating = '超超うまい';
-  else if (caption.includes('超うまい')) rating = '超うまい';
-  else if (caption.includes('うまい')) rating = 'うまい';
+  let rating_inferred = null;
+  let raw_rating_phrase = null;
+  if (caption.includes('ちょめめ')) { rating_inferred = 'ちょめめ'; raw_rating_phrase = 'ちょめめ'; }
+  else if (caption.includes('超超うまい')) { rating_inferred = '超超うまい'; raw_rating_phrase = '超超うまい'; }
+  else if (caption.includes('超うまい')) { rating_inferred = '超うまい'; raw_rating_phrase = '超うまい'; }
+  else if (caption.includes('うまい')) { rating_inferred = 'うまい'; raw_rating_phrase = 'うまい'; }
 
   // 簡易的な店名抽出（「〜さんへ」「〜さん！」パターン）
   const nameMatch = caption.match(/(?:にある|の)(.+?)さん[へ！。\n]/);
@@ -171,7 +183,9 @@ function getMockExtraction(post) {
     isRamenPost: true,
     name,
     area_hint: post.locationName || null,
-    rating,
+    rating: null,
+    raw_rating_phrase,
+    rating_inferred,
     genre: [],
     try: caption.includes('TRY') ? { year: 2023, category: null } : null,
     entryMethod: null,
