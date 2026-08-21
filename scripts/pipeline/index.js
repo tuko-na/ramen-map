@@ -22,10 +22,13 @@ import { resolveLocation } from './geocoder.js';
 import { loadShopData, getAllProcessedIds } from './merger.js';
 import { loadQueue, saveQueue, getQueuePostIds } from './queue-store.js';
 import { finalizeShop } from './finalize.js';
+import { lookupRating } from './rating-dictionary.js';
 import { safeErrorMessage } from './utils.js';
 
 /** --dry-run フラグの検出 */
 const DRY_RUN = process.argv.includes('--dry-run');
+/** --allow-inferred フラグ (妥協運用モード) */
+const ALLOW_INFERRED = process.argv.includes('--allow-inferred');
 
 /**
  * パイプラインのメインエントリーポイント
@@ -33,6 +36,7 @@ const DRY_RUN = process.argv.includes('--dry-run');
 async function runPipeline() {
   console.log('=== ラーメンマップ データ収集パイプライン開始 ===');
   if (DRY_RUN) console.log('⚠️  DRY-RUN モード: 本番データへの書き込みを行いません');
+  if (ALLOW_INFERRED) console.log('⚠️  ALLOW_INFERRED モード: 辞書未登録でも推測値を自動確定します');
   console.log(`実行日時: ${new Date().toISOString()}`);
 
   // 1. 既存データ読み込み
@@ -78,6 +82,24 @@ async function runPipeline() {
       // 4-1. Gemini 一次抽出
       const extracted = await parseCaption(post);
 
+      // 4-1-a. 辞書照合と評価の確定
+      if (extracted.isRamenPost) {
+        const mappedRating = lookupRating(extracted.raw_rating_phrase);
+        if (mappedRating === 'ignore') {
+          console.log('[pipeline] 辞書により ignore (破棄) 判定 → スキップ');
+          skippedCount++;
+          continue;
+        } else if (mappedRating) {
+          extracted.rating = mappedRating;
+          extracted.ratingSource = 'dictionary';
+        } else if (ALLOW_INFERRED && extracted.rating_inferred) {
+          extracted.rating = extracted.rating_inferred;
+          extracted.ratingSource = 'inferred';
+        } else {
+          extracted.ratingSource = null;
+        }
+      }
+
       // 4-2. 非ラーメン投稿のスキップ
       if (!extracted.isRamenPost) {
         console.log('[pipeline] 非ラーメン投稿 → スキップ');
@@ -90,7 +112,9 @@ async function runPipeline() {
 
       // 4-4. 退避判定: rating null OR 位置未確定
       const reasons = [];
-      if (!extracted.rating) reasons.push('RATING_MISSING');
+      if (!extracted.rating) {
+        reasons.push(extracted.raw_rating_phrase ? 'UNKNOWN_RATING_PHRASE' : 'RATING_MISSING');
+      }
       if (geoResult.isPendingLocation) reasons.push(geoResult.reason);
 
       if (reasons.length > 0) {

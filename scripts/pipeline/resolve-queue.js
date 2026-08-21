@@ -20,6 +20,7 @@ import { createInterface } from 'node:readline';
 import { resolveLocation, fetchPlaceDetailsForId } from './geocoder.js';
 import { loadQueue, saveQueue } from './queue-store.js';
 import { finalizeShop } from './finalize.js';
+import { addToDictionary } from './rating-dictionary.js';
 import { safeErrorMessage } from './utils.js';
 
 const RATING_OPTIONS = ['ちょめめ', '超超うまい', '超うまい', 'うまい'];
@@ -72,6 +73,14 @@ async function main() {
     // --- 位置解決 ---
     if (item.reasons.includes('LOCATION_AMBIGUOUS')) {
       console.log('📍 位置の候補が複数あります:');
+      
+      // 抽出名との類似度でソートする
+      const extractedName = item.extracted?.name || '';
+      
+      item.candidates.sort((a, b) => {
+        return similarityScore(extractedName, b.name) - similarityScore(extractedName, a.name);
+      });
+
       item.candidates.forEach((c, idx) => {
         console.log(`   ${idx + 1}. ${c.name} (${c.address})`);
       });
@@ -152,12 +161,19 @@ async function main() {
     }
 
     // --- 評価解決 ---
-    if (item.reasons.includes('RATING_MISSING') || !resolvedRating) {
+    if (item.reasons.includes('RATING_MISSING') || item.reasons.includes('UNKNOWN_RATING_PHRASE') || !resolvedRating) {
       console.log('⭐ 味の評価を選択してください:');
+      if (item.extracted?.raw_rating_phrase) {
+        console.log(`   📝 抽出された原文: "${item.extracted.raw_rating_phrase}"`);
+      }
+      if (item.extracted?.rating_inferred) {
+        console.log(`   💡 Geminiの推測: ${item.extracted.rating_inferred}（参考）`);
+      }
       RATING_OPTIONS.forEach((r, idx) => {
         console.log(`   ${idx + 1}. ${r}`);
       });
       console.log('   5. スキップ（保留）');
+      console.log('   6. 適用外（ignore/破棄）');
       console.log();
 
       const choice = await ask('番号を入力: ');
@@ -166,6 +182,18 @@ async function main() {
       if (num >= 1 && num <= 4) {
         resolvedRating = RATING_OPTIONS[num - 1];
         console.log(`✅ 評価: "${resolvedRating}" に確定しました\n`);
+        if (item.extracted?.raw_rating_phrase) {
+          addToDictionary(item.extracted.raw_rating_phrase, resolvedRating);
+          console.log(`📘 辞書に登録しました: "${item.extracted.raw_rating_phrase}" -> "${resolvedRating}"`);
+        }
+      } else if (num === 6) {
+        console.log('🗑️ 適用外として破棄します\n');
+        if (item.extracted?.raw_rating_phrase) {
+          addToDictionary(item.extracted.raw_rating_phrase, 'ignore');
+          console.log(`📘 辞書に登録しました: "${item.extracted.raw_rating_phrase}" -> "ignore"`);
+        }
+        resolvedIndices.push(i);
+        continue;
       } else {
         console.log('⏭️ スキップしました\n');
         continue;
@@ -222,3 +250,30 @@ main().catch(err => {
   console.error('エラー:', safeErrorMessage(err));
   process.exit(1);
 });
+
+/**
+ * 簡易的な文字列類似度スコアを計算する（大きいほど類似）
+ */
+function similarityScore(extracted, candidate) {
+  if (!extracted || !candidate) return 0;
+  
+  const a = extracted.replace(/[\s　]+/g, '').toLowerCase();
+  const b = candidate.replace(/[\s　]+/g, '').toLowerCase();
+  
+  let score = 0;
+  if (a === b) {
+    score += 100;
+  } else if (a.includes(b) || b.includes(a)) {
+    score += 50;
+    // 長さの差が少ないほど高得点
+    score += Math.max(0, 10 - Math.abs(a.length - b.length));
+  } else {
+    // 簡易文字被り
+    let matchChars = 0;
+    for (let i = 0; i < a.length; i++) {
+      if (b.includes(a[i])) matchChars++;
+    }
+    score += (matchChars / Math.max(a.length, b.length)) * 20;
+  }
+  return score;
+}

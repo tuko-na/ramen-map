@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "pipeline": "node scripts/pipeline/index.js",
     "pipeline:dry-run": "node scripts/pipeline/index.js --dry-run",
+    "pipeline:backfill-extract": "node scripts/pipeline/backfill-extract.js",
     "resolve-queue": "node scripts/pipeline/resolve-queue.js"
   },
   "devDependencies": {
