@@ -1,1 +1,314 @@
-[]
+[
+  {
+    "postId": "ig_3926965978559738119",
+    "postUrl": "https://www.instagram.com/p/DZ_YsBlGPEH/",
+    "caption": "塩生姜らー麺専門店 MANNISH\n神田イエロー\nウンメエ！",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "塩生姜らー麺専門店 MANNISH",
+      "area_hint": "神田",
+      "rating": null,
+      "genre": [
+        "塩"
+      ],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "RATING_MISSING"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJ34CgHASMGGARG5poMVhiB1w",
+        "name": "塩生姜らー麺専門店MANNISH 淡路町本店",
+        "address": "〒101-0047 東京都千代田区神田司町２丁目２−８ マガザン神田 1階",
+        "lat": 35.693185199999995,
+        "lng": 139.7676098
+      }
+    ],
+    "createdAt": "2026-08-15T23:48:41.723Z"
+  },
+  {
+    "postId": "ig_3870629645272779525",
+    "postUrl": "https://www.instagram.com/p/DW3PSenlIsF/",
+    "caption": "ジャンプ\nウメエ",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "ジャンプ",
+      "area_hint": "春日部",
+      "rating": null,
+      "genre": [],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "RATING_MISSING"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJjYVqArG-GGARo4AqPX3H-Y8",
+        "name": "ジャンプ",
+        "address": "〒344-0064 埼玉県春日部市南５丁目１−５６",
+        "lat": 35.969964999999995,
+        "lng": 139.7596901
+      }
+    ],
+    "createdAt": "2026-08-15T23:48:46.141Z"
+  },
+  {
+    "postId": "ig_3955406033212714750",
+    "postUrl": "https://www.instagram.com/p/DbkbNSgFK7-/",
+    "caption": "ラーメン鷹の目\nネバネバまぜそば\nウンメエ！！",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "ラーメン鷹の目",
+      "area_hint": null,
+      "rating": null,
+      "genre": [
+        "油そば・まぜそば"
+      ],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "RATING_MISSING",
+      "LOCATION_AMBIGUOUS"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJ8cHFvz7mDF8RO3yo0UHy4RU",
+        "name": "旭川鷹栖ラーメン 鷹の爪 宮前店",
+        "address": "〒078-8391 北海道旭川市宮前１条３丁目２−７",
+        "lat": 43.7590121,
+        "lng": 142.37425439999998
+      },
+      {
+        "placeId": "ChIJDw4LrPznDF8RdfJLhfpUBU8",
+        "name": "鷹の爪 アルティモール店",
+        "address": "〒071-1534 北海道上川郡東神楽町ひじり野南１条６丁目１ アルティモール東神楽店内",
+        "lat": 43.723106099999995,
+        "lng": 142.4068729
+      },
+      {
+        "placeId": "ChIJtULr3rqPGGARAmCXeaEK9oM",
+        "name": "ラーメン鷹の目 北千住",
+        "address": "〒120-0034 東京都足立区千住２丁目２９",
+        "lat": 35.749918799999996,
+        "lng": 139.8023514
+      },
+      {
+        "placeId": "ChIJl2BsI8OlDV8Rqr1ReU4MZ_w",
+        "name": "鷹の爪 士別店",
+        "address": "〒095-0019 北海道士別市大通東１７丁目３１４３−１５９",
+        "lat": 44.1643587,
+        "lng": 142.3963686
+      },
+      {
+        "placeId": "ChIJ3bVX5g5hGGARustNc9b8c6M",
+        "name": "ラーメン鷹の目 蒲田店",
+        "address": "〒144-0051 東京都大田区西蒲田８丁目２−１",
+        "lat": 35.560674,
+        "lng": 139.7143592
+      }
+    ],
+    "createdAt": "2026-08-15T23:48:48.833Z"
+  },
+  {
+    "postId": "ig_3869211815356676881",
+    "postUrl": "https://www.instagram.com/p/DWyM6VnFDsR/",
+    "caption": "ラーメン二郎 大宮公園駅前店\n汁なし！",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "ラーメン二郎 大宮公園駅前店",
+      "area_hint": "さいたま市大宮区",
+      "rating": null,
+      "genre": [
+        "二郎系",
+        "油そば・まぜそば"
+      ],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "RATING_MISSING"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJ0VEFf5rBGGARKpdulC6_55A",
+        "name": "ラーメン二郎 大宮公園駅前店",
+        "address": "〒330-0805 埼玉県さいたま市大宮区寿能町１丁目２４",
+        "lat": 35.9225841,
+        "lng": 139.632011
+      }
+    ],
+    "createdAt": "2026-08-15T23:48:51.168Z"
+  },
+  {
+    "postId": "ig_3907432870965450194",
+    "postUrl": "https://www.instagram.com/p/DY5_X5hlJXS/",
+    "caption": "らあめん元\n鶏白湯、超超うまい",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "らあめん元",
+      "area_hint": null,
+      "rating": "超超うまい",
+      "genre": [
+        "鶏白湯"
+      ],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "LOCATION_AMBIGUOUS"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJvaysPLXnDF8R67b5zx4SdZY",
+        "name": "らーめん玄",
+        "address": "〒078-8346 北海道旭川市東光６条３丁目２−１０",
+        "lat": 43.7503988,
+        "lng": 142.3985612
+      },
+      {
+        "placeId": "ChIJMTdkILrsGGARmMNtAlTA2qw",
+        "name": "らあめん 元",
+        "address": "〒174-0043 東京都板橋区坂下２丁目１６−１１",
+        "lat": 35.784285,
+        "lng": 139.6795912
+      }
+    ],
+    "createdAt": "2026-08-15T23:48:59.692Z"
+  },
+  {
+    "postId": "ig_3882234440009918651",
+    "postUrl": "https://www.instagram.com/p/DXgd6d7lCi7/",
+    "caption": "ラーメン二郎 千住大橋駅前店\n超ウメエ",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "ラーメン二郎 千住大橋駅前店",
+      "area_hint": "千住大橋",
+      "rating": null,
+      "genre": [
+        "二郎系"
+      ],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "RATING_MISSING"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJr4SZ8lyOGGARY6tf7XP-5nA",
+        "name": "ラーメン二郎 千住大橋駅前店",
+        "address": "〒120-0038 東京都足立区千住橋戸町１０−８",
+        "lat": 35.742554999999996,
+        "lng": 139.797066
+      }
+    ],
+    "createdAt": "2026-08-15T23:49:01.953Z"
+  },
+  {
+    "postId": "ig_3860429553177770999",
+    "postUrl": "https://www.instagram.com/p/DWTADmllLv3/",
+    "caption": "北ノ醤油 チーホー\nオープンしました！\nバリッと醤油感の効いた香ばしい一杯に仕上げました。\nたくさんのご来店をお待ちしております🙇",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "北ノ醤油 チーホー",
+      "area_hint": "水道橋",
+      "rating": null,
+      "genre": [
+        "醤油"
+      ],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "RATING_MISSING"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJ5R-mDQCNGGAR6nPJe91LLe0",
+        "name": "北ノ醤油チーホー 水道橋店",
+        "address": "〒101-0061 東京都千代田区神田三崎町２丁目１６−１０",
+        "lat": 35.7008349,
+        "lng": 139.75338729999999
+      }
+    ],
+    "createdAt": "2026-08-15T23:49:16.671Z"
+  },
+  {
+    "postId": "ig_3868248540536390939",
+    "postUrl": "https://www.instagram.com/p/DWux42BmEUb/",
+    "caption": "麺家 龍\n超うまい",
+    "extracted": {
+      "isRamenPost": true,
+      "name": "麺家 龍",
+      "area_hint": null,
+      "rating": "超うまい",
+      "genre": [],
+      "try": null,
+      "entryMethod": null,
+      "ticketBuy": null,
+      "cashless": null,
+      "parking": null,
+      "tableSeating": null,
+      "nonsmoking": null
+    },
+    "reasons": [
+      "LOCATION_AMBIGUOUS"
+    ],
+    "candidates": [
+      {
+        "placeId": "ChIJl6nkHgDnDF8RUmFbyvMR-Sk",
+        "name": "麺屋 龍家",
+        "address": "〒079-8441 北海道旭川市流通団地１条１丁目３５−４",
+        "lat": 43.7917467,
+        "lng": 142.3954605
+      },
+      {
+        "placeId": "ChIJYzNrsr_tGGARt-o6jmd9Ulw",
+        "name": "麺家 龍 Ryo",
+        "address": "〒167-0051 東京都杉並区荻窪４丁目３２−８",
+        "lat": 35.7043828,
+        "lng": 139.6238014
+      }
+    ],
+    "createdAt": "2026-08-15T23:49:22.624Z"
+  }
+]
